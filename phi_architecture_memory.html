@@ -22,7 +22,6 @@
             overflow-x: hidden;
         }
 
-        /* خلفية متدرجة ونمط معماري */
         body::before {
             content: "";
             position: fixed;
@@ -50,7 +49,7 @@
             z-index: -1;
         }
 
-        /* شاشة الترحيب - محسنة للموبايل */
+        /* شاشة الترحيب */
         .splash-screen {
             position: fixed;
             top: 0;
@@ -98,7 +97,6 @@
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
-            letter-spacing: -0.3px;
             margin-bottom: 12px;
         }
 
@@ -125,7 +123,6 @@
             padding: 0 20px;
         }
 
-        /* هيدر responsive */
         .hero {
             text-align: center;
             padding: 50px 15px 40px;
@@ -139,7 +136,6 @@
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
-            letter-spacing: -0.3px;
         }
 
         .hero .sub {
@@ -168,7 +164,6 @@
             font-weight: 600;
             color: #2a5f74;
             font-size: 0.75rem;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
             border: 1px solid rgba(224, 157, 107, 0.3);
         }
 
@@ -205,7 +200,6 @@
             border-radius: 2px;
         }
 
-        /* شبكة المعرض - محسنة للموبايل */
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
@@ -240,9 +234,7 @@
             transform: scale(1.02);
         }
 
-        /* لا يوجد أي نص تحت الصور */
-
-        /* Lightbox ممتاز للموبايل */
+        /* Lightbox */
         .fullscreen-lightbox {
             position: fixed;
             top: 0;
@@ -338,7 +330,6 @@
 
         .fs-close:hover {
             background: #e09d6b;
-            transform: scale(1.03);
         }
 
         .fs-counter {
@@ -376,17 +367,8 @@
             .gallery-card img {
                 height: 220px;
             }
-            .hero {
-                padding: 40px 15px 30px;
-            }
             .hero h1 {
                 font-size: 1.7rem;
-            }
-            .welcome-message {
-                font-size: 1.4rem;
-            }
-            .sub-message {
-                font-size: 0.85rem;
             }
         }
 
@@ -434,7 +416,7 @@
 </head>
 <body>
 
-<!-- شاشة الترحيب (تظهر بشكل صحيح على الموبايل) -->
+<!-- شاشة الترحيب -->
 <div id="splashScreen" class="splash-screen">
     <div class="splash-content">
         <img src="https://i.postimg.cc/nc5YKPkQ/image.png" alt="Welcome Class of 2026" loading="eager">
@@ -450,7 +432,7 @@
         <div class="arch-badge">
             <span><i class="fas fa-drafting-compass"></i> Architectural Soul</span>
             <span><i class="fas fa-landmark"></i> Egyptian Identity</span>
-            <span><i class="fas fa-images"></i> 30 لحظة</span>
+            <span><i class="fas fa-images"></i> ذكريات متجددة</span>
         </div>
         <div class="arch-divider"></div>
         <p style="margin-top: 20px; max-width: 85%; margin-inline: auto; color: #4f7d8f; font-size: 0.9rem;">انقر على أي صورة لتغمر شاشتك بالذاكرة</p>
@@ -460,18 +442,18 @@
 <div class="container">
     <div class="section-title">
         <h2><i class="fas fa-camera-retro" style="margin-left: 8px; color: #e09d6b;"></i> معرض الذكريات</h2>
-        <span>تنقل سلس — صور تملأ الشاشة</span>
+        <span>تنقل سلس — صور تملأ الشاشة — مرتبة من الأحدث للأقدم</span>
     </div>
     <div id="galleryGrid" class="gallery-grid">
         <div class="loading-placeholder"><i class="fas fa-spinner fa-pulse"></i> جاري تحميل الذكريات...</div>
     </div>
 </div>
 
-<!-- Lightbox بدون تعليقات -->
+<!-- Lightbox -->
 <div id="fullscreenLightbox" class="fullscreen-lightbox">
     <div class="fs-wrapper">
         <button class="fs-close" id="fsCloseBtn"><i class="fas fa-times"></i></button>
-        <div class="fs-counter" id="fsCounter">1 / 30</div>
+        <div class="fs-counter" id="fsCounter">1 / 0</div>
         <img id="fsImage" class="fs-image" src="" alt="ذكرى">
         <button class="fs-nav fs-prev" id="fsPrevBtn"><i class="fas fa-chevron-right"></i></button>
         <button class="fs-nav fs-next" id="fsNextBtn"><i class="fas fa-chevron-left"></i></button>
@@ -492,41 +474,131 @@
 </footer>
 
 <script>
-    // قائمة الصور كاملة (بدون أي نصوص)
-    const imagesData = [
+    // القائمة الجديدة مرتبة يدوياً من الأحدث (2026-04-26) إلى الأقدم
+    const imagesList = [
+        // صورة الترحيب تظل الأولى
         "https://i.postimg.cc/nc5YKPkQ/image.png",
-        "https://i.postimg.cc/jq9Dgsh5/Whats-App-Image-2026-04-23-at-12-39-10.jpg",
-        "https://i.postimg.cc/CMtRPF4Z/Whats-App-Image-2026-04-23-at-12-39-12.jpg",
-        "https://i.postimg.cc/SNMJHwZY/Whats-App-Image-2026-04-23-at-12-39-14.jpg",
-        "https://i.postimg.cc/bYMZCzRD/Whats-App-Image-2026-04-23-at-12-39-32.jpg",
-        "https://i.postimg.cc/NfH5ZWNL/Whats-App-Image-2026-04-23-at-12-40-37.jpg",
-        "https://i.postimg.cc/rFrK7vhp/Whats-App-Image-2026-04-23-at-12-40-37-(1).jpg",
+        // الأحدث: 2026-04-26
+        "https://i.postimg.cc/LX2gddTx/Whats-App-Image-2026-04-26-at-00-09-09.jpg",
+        "https://i.postimg.cc/V6m0yyRg/Whats-App-Image-2026-04-26-at-00-09-09-(1).jpg",
+        "https://i.postimg.cc/0QPKggfZ/Whats-App-Image-2026-04-26-at-00-09-09-(2).jpg",
+        "https://i.postimg.cc/FRNkttZ8/Whats-App-Image-2026-04-26-at-00-09-10.jpg",
+        "https://i.postimg.cc/bJpSXXT6/Whats-App-Image-2026-04-26-at-00-09-10-(1).jpg",
+        "https://i.postimg.cc/85Nf88HK/Whats-App-Image-2026-04-26-at-00-09-10-(2).jpg",
+        "https://i.postimg.cc/XJ4BMM8T/Whats-App-Image-2026-04-26-at-00-09-11.jpg",
+        "https://i.postimg.cc/Hxd8GG2v/Whats-App-Image-2026-04-26-at-00-09-11-(1).jpg",
+        "https://i.postimg.cc/sXsGFFc0/Whats-App-Image-2026-04-26-at-00-09-11-(2).jpg",
+        "https://i.postimg.cc/B64PWWgy/Whats-App-Image-2026-04-26-at-00-09-11-(3).jpg",
+        "https://i.postimg.cc/rmMR66J7/Whats-App-Image-2026-04-26-at-00-09-11-(4).jpg",
+        // ثم 2026-04-25
         "https://i.postimg.cc/Jht8wtJV/Whats-App-Image-2026-04-25-at-15-10-06.jpg",
-        "https://i.postimg.cc/0NrvgrSH/Whats-App-Image-2026-04-25-at-15-10-06-(1).jpg",
         "https://i.postimg.cc/Jht8wtJw/Whats-App-Image-2026-04-25-at-15-10-06-(2).jpg",
-        "https://i.postimg.cc/fbks4kdG/Whats-App-Image-2026-04-25-at-15-10-06-(3).jpg",
         "https://i.postimg.cc/KYV2mF7C/Whats-App-Image-2026-04-25-at-15-10-07.jpg",
-        "https://i.postimg.cc/XvXWMX5T/Whats-App-Image-2026-04-25-at-15-10-07-(1).jpg",
         "https://i.postimg.cc/R08Bv91p/Whats-App-Image-2026-04-25-at-15-10-07-(2).jpg",
         "https://i.postimg.cc/DzmhVmsT/Whats-App-Image-2026-04-25-at-15-10-07-(3).jpg",
-        "https://i.postimg.cc/jj9bRK6k/Whats-App-Image-2026-04-25-at-15-10-07-(4).jpg",
         "https://i.postimg.cc/5tGVf15R/Whats-App-Image-2026-04-25-at-15-10-07-(5).jpg",
         "https://i.postimg.cc/9fShcVtW/Whats-App-Image-2026-04-25-at-15-10-08.jpg",
-        "https://i.postimg.cc/cJjSdZ7p/Whats-App-Image-2026-04-25-at-15-10-08-(1).jpg",
-        "https://i.postimg.cc/hGwBKgbF/Whats-App-Image-2026-04-25-at-15-10-08-(2).jpg",
         "https://i.postimg.cc/fbFNMZjn/Whats-App-Image-2026-04-25-at-15-10-08-(3).jpg",
         "https://i.postimg.cc/N0VcQY7v/Whats-App-Image-2026-04-25-at-15-10-08-(4).jpg",
         "https://i.postimg.cc/jj9bRKQr/Whats-App-Image-2026-04-25-at-15-10-08-(5).jpg",
         "https://i.postimg.cc/yN5H7BXK/Whats-App-Image-2026-04-25-at-15-10-08-(6).jpg",
-        "https://i.postimg.cc/Bvy0JscJ/Whats-App-Image-2026-04-25-at-15-10-08-(7).jpg",
         "https://i.postimg.cc/JhgLRmcm/Whats-App-Image-2026-04-25-at-15-10-08-(8).jpg",
         "https://i.postimg.cc/xd729Yy8/Whats-App-Image-2026-04-25-at-15-10-09.jpg",
         "https://i.postimg.cc/g05WGdqc/Whats-App-Image-2026-04-25-at-15-10-09-(1).jpg",
         "https://i.postimg.cc/Bvy0Jscn/Whats-App-Image-2026-04-25-at-15-10-09-(2).jpg",
-        "https://i.postimg.cc/YSVHtkf9/Whats-App-Image-2026-04-25-at-15-10-09-(3).jpg"
+        "https://i.postimg.cc/YSVHtkf9/Whats-App-Image-2026-04-25-at-15-10-09-(3).jpg",
+        "https://i.postimg.cc/jjVJXnJK/Whats-App-Image-2026-04-25-at-18-58-44.jpg",
+        "https://i.postimg.cc/DzVbg44H/Whats-App-Image-2026-04-25-at-18-58-44-(1).jpg",
+        "https://i.postimg.cc/W4RJnqJL/Whats-App-Image-2026-04-25-at-18-58-44-(2).jpg",
+        "https://i.postimg.cc/KYXgN3gy/Whats-App-Image-2026-04-25-at-18-58-44-(3).jpg",
+        "https://i.postimg.cc/5twQk9wb/Whats-App-Image-2026-04-25-at-18-58-45.jpg",
+        "https://i.postimg.cc/SK0zrYzm/Whats-App-Image-2026-04-25-at-18-58-45-(1).jpg",
+        "https://i.postimg.cc/k5rtcRtX/Whats-App-Image-2026-04-25-at-18-58-45-(2).jpg",
+        "https://i.postimg.cc/7LvTVJTL/Whats-App-Image-2026-04-25-at-18-58-45-(3).jpg",
+        "https://i.postimg.cc/6Qd416dp/Whats-App-Image-2026-04-25-at-18-58-50.jpg",
+        "https://i.postimg.cc/1zpVYRp9/Whats-App-Image-2026-04-25-at-18-58-50-(1).jpg",
+        "https://i.postimg.cc/xdKNFjKX/Whats-App-Image-2026-04-25-at-18-59-37.jpg",
+        "https://i.postimg.cc/bvQSFYQr/Whats-App-Image-2026-04-25-at-18-59-37-(1).jpg",
+        "https://i.postimg.cc/3wg0brgW/Whats-App-Image-2026-04-25-at-18-59-37-(2).jpg",
+        "https://i.postimg.cc/KYn3scnM/Whats-App-Image-2026-04-25-at-18-59-38.jpg",
+        "https://i.postimg.cc/KYn3scnk/Whats-App-Image-2026-04-25-at-18-59-38-(1).jpg",
+        "https://i.postimg.cc/DZn4VVgb/Whats-App-Image-2026-04-25-at-19-01-03-(9).jpg",
+        "https://i.postimg.cc/vBbxRRzt/Whats-App-Image-2026-04-25-at-19-06-43.jpg",
+        "https://i.postimg.cc/RF4JrrRc/Whats-App-Image-2026-04-25-at-19-06-43-(1).jpg",
+        "https://i.postimg.cc/ZR4vkkc8/Whats-App-Image-2026-04-25-at-19-06-43-(2).jpg",
+        "https://i.postimg.cc/63t4ss0V/Whats-App-Image-2026-04-25-at-19-06-43-(3).jpg",
+        "https://i.postimg.cc/0QPKggff/Whats-App-Image-2026-04-25-at-19-06-44.jpg",
+        "https://i.postimg.cc/0QPKggfC/Whats-App-Image-2026-04-25-at-19-06-44-(1).jpg",
+        // باقي الصور بدون تاريخ واضح في الاسم (نعتبرها أقدم)
+        "https://i.postimg.cc/8PB3DLNy/6bbde1b9-d8f7-4d53-9829-509c78dd3608.jpg",
+        "https://i.postimg.cc/RVQ89wvr/ARAT2083.jpg",
+        "https://i.postimg.cc/GmLfp9m5/AWXD1040.jpg",
+        "https://i.postimg.cc/FHr6K1HW/bbdb4381-fd4f-4f31-945c-4171bc0e1995.jpg",
+        "https://i.postimg.cc/fRzPbkRq/CAMJ0168.jpg",
+        "https://i.postimg.cc/BnSzvtnk/CUCD4601.jpg",
+        "https://i.postimg.cc/1tqCdqv3/IMG-0045.avif",
+        "https://i.postimg.cc/FF0Cg0f8/IMG-0903.avif",
+        "https://i.postimg.cc/ZnPfbhtZ/IMG-1009.avif",
+        "https://i.postimg.cc/CMbrHbZQ/IMG-1013.avif",
+        "https://i.postimg.cc/L6RCyhLZ/IMG-1034-Copy.avif",
+        "https://i.postimg.cc/137v5HTW/IMG-1074.avif",
+        "https://i.postimg.cc/LsqNqPKC/IMG-1136.avif",
+        "https://i.postimg.cc/JhyPyXV2/IMG-2012.avif",
+        "https://i.postimg.cc/sX7mmRXd/IMG-2022.avif",
+        "https://i.postimg.cc/hvnr33zG/IMG-2467.avif",
+        "https://i.postimg.cc/RhTRrQKw/IMG-2702.avif",
+        "https://i.postimg.cc/ZnLckFpp/IMG-3164.avif",
+        "https://i.postimg.cc/8PtHt41P/IMG-3185-Copy.avif",
+        "https://i.postimg.cc/WbXnX82c/IMG-3188.avif",
+        "https://i.postimg.cc/BnbCyF6G/IMG-3215-Copy.avif",
+        "https://i.postimg.cc/GmtjND2L/IMG-3218-Copy.avif",
+        "https://i.postimg.cc/pLSBtdhz/IMG-3258.avif",
+        "https://i.postimg.cc/L8WVMsYG/IMG-3264.avif",
+        "https://i.postimg.cc/TPWJ2XgH/IMG-3558.avif",
+        "https://i.postimg.cc/rmXCKY9d/IMG-4432.avif",
+        "https://i.postimg.cc/TwVjmqkV/IMG-4433.avif",
+        "https://i.postimg.cc/rm1GWChf/IMG-4655.avif",
+        "https://i.postimg.cc/mDY3MNdv/IMG-4757.avif",
+        "https://i.postimg.cc/4d6vtbLZ/IMG-4871.avif",
+        "https://i.postimg.cc/PJdWMp9X/IMG-4920.avif",
+        "https://i.postimg.cc/Vv4jZsPJ/IMG-4945.avif",
+        "https://i.postimg.cc/XNgcYLBC/IMG-4991.avif",
+        "https://i.postimg.cc/NFb1CGvN/IMG-5793.avif",
+        "https://i.postimg.cc/d3J29kpD/IMG-6479.jpg",
+        "https://i.postimg.cc/3N9gfrQd/IMG-6495.jpg",
+        "https://i.postimg.cc/XNgcYLBZ/IMG-6856.avif",
+        "https://i.postimg.cc/8cwhXkgH/IMG-6993.jpg",
+        "https://i.postimg.cc/wMFh4xYb/IMG-7110.jpg",
+        "https://i.postimg.cc/9F8dGfph/IMG-7208.avif",
+        "https://i.postimg.cc/wj1hFdfL/IMG-7244-Copy.avif",
+        "https://i.postimg.cc/qMbs87Lv/IMG-7291.jpg",
+        "https://i.postimg.cc/qvW25ZSZ/IMG-7771-Copy.avif",
+        "https://i.postimg.cc/mgK756JJ/IMG-7871.avif",
+        "https://i.postimg.cc/N0TRqkwv/IMG-7964.avif",
+        "https://i.postimg.cc/XJbdVBVc/IMG-8112.avif",
+        "https://i.postimg.cc/vBt9D8Bz/IMG-9001.avif",
+        "https://i.postimg.cc/L54PPdgF/IMG-9085.avif",
+        "https://i.postimg.cc/prVjjN5d/IMG-9092.avif",
+        "https://i.postimg.cc/cC133qtn/IMG-9122.avif",
+        "https://i.postimg.cc/RCGKB02P/IMG-9129.avif",
+        "https://i.postimg.cc/PrxZrjkK/IMG-9210.avif",
+        "https://i.postimg.cc/pXT8XHts/IMG-9468.avif",
+        "https://i.postimg.cc/9FMTFhjN/IMG-9806.avif",
+        "https://i.postimg.cc/Qxy7Fy8N/IMG-9807.avif",
+        "https://i.postimg.cc/yYbRDb19/IMG-E2467.avif",
+        "https://i.postimg.cc/sgGh74x1/IMG-E3185-Copy.avif",
+        "https://i.postimg.cc/mg1HCykk/IMG-E4379.avif",
+        "https://i.postimg.cc/Gp0sQTT5/IMG-E4433.avif",
+        "https://i.postimg.cc/T35DgJ14/IMG-E7244.avif",
+        "https://i.postimg.cc/T35DgJ1C/IMG-E9210.avif",
+        "https://i.postimg.cc/Dzq4Yfqc/IMG-E9474.avif",
+        "https://i.postimg.cc/fLDS44KX/IMG-E9514.avif",
+        "https://i.postimg.cc/L8g1L35w/JZPU2818.jpg",
+        "https://i.postimg.cc/R0rnRJJP/MGNP0942.jpg",
+        "https://i.postimg.cc/nL8Qk99w/MPGY7367.jpg"
     ];
 
-    let currentImagesList = [...imagesData];
+    let currentImages = [...imagesList];
     let currentIndex = 0;
     let isTransitioning = false;
     const galleryDiv = document.getElementById('galleryGrid');
@@ -538,12 +610,12 @@
     const fsClose = document.getElementById('fsCloseBtn');
 
     function buildGallery() {
-        if (!currentImagesList.length) {
+        if (!currentImages.length) {
             galleryDiv.innerHTML = '<div class="loading-placeholder">✨ لا توجد صور ✨</div>';
             return;
         }
         let html = '';
-        currentImagesList.forEach((src, idx) => {
+        currentImages.forEach((src, idx) => {
             html += `
                 <div class="gallery-card" data-index="${idx}">
                     <img src="${src}" alt="ذكرى ${idx+1}" loading="lazy">
@@ -552,7 +624,7 @@
         });
         galleryDiv.innerHTML = html;
         document.querySelectorAll('.gallery-card').forEach(card => {
-            card.addEventListener('click', (e) => {
+            card.addEventListener('click', () => {
                 const idx = parseInt(card.getAttribute('data-index'));
                 if (!isNaN(idx)) openLightbox(idx);
             });
@@ -568,15 +640,14 @@
     }
 
     function updateLightboxContent(initial = false) {
-        const imgSrc = currentImagesList[currentIndex];
+        const imgSrc = currentImages[currentIndex];
         if (!imgSrc) return;
-        const total = currentImagesList.length;
+        const total = currentImages.length;
         if (initial) {
             fsImage.style.transition = 'none';
             fsImage.src = imgSrc;
             fsCounter.innerText = `${currentIndex+1} / ${total}`;
             fsImage.style.opacity = '1';
-            // force reflow
             fsImage.offsetHeight;
             fsImage.style.transition = 'opacity 0.25s ease';
         } else {
@@ -593,7 +664,7 @@
     function nextImage() {
         if (isTransitioning) return;
         isTransitioning = true;
-        currentIndex = (currentIndex + 1) % currentImagesList.length;
+        currentIndex = (currentIndex + 1) % currentImages.length;
         updateLightboxContent();
         setTimeout(() => { isTransitioning = false; }, 280);
     }
@@ -601,7 +672,7 @@
     function prevImage() {
         if (isTransitioning) return;
         isTransitioning = true;
-        currentIndex = (currentIndex - 1 + currentImagesList.length) % currentImagesList.length;
+        currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
         updateLightboxContent();
         setTimeout(() => { isTransitioning = false; }, 280);
     }
@@ -612,7 +683,6 @@
         fsImage.style.opacity = '1';
     }
 
-    // ربط الأحداث
     fsClose.addEventListener('click', closeLightbox);
     fsPrev.addEventListener('click', prevImage);
     fsNext.addEventListener('click', nextImage);
@@ -624,20 +694,15 @@
         else if (e.key === 'Escape') closeLightbox();
     });
 
-    // التحكم في شاشة الترحيب
     const splash = document.getElementById('splashScreen');
     function hideSplash() {
         splash.style.opacity = '0';
         splash.style.visibility = 'hidden';
         setTimeout(() => { splash.style.display = 'none'; }, 800);
     }
-    // Auto-hide بعد 3 ثواني
     setTimeout(hideSplash, 3000);
-    // عند النقر في أي مكان تختفي أيضاً (خاص للموبايل)
     splash.addEventListener('click', hideSplash);
-    // للتأكد من أن الصورة تظهر حتى لو كانت الشبكة بطيئة
-    window.addEventListener('load', function() {
-        // إذا لم تختفي بعد 4 ثواني مثلاً
+    window.addEventListener('load', () => {
         setTimeout(() => {
             if (splash.style.display !== 'none') hideSplash();
         }, 4000);
