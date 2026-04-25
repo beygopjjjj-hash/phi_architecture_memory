@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الأرشيف البصري | قسم الهندسة المعمارية PHI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@100;300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #075985;
+            --soft-blue: #e0f2fe;
+            --arch-gray: #f8fafc;
+            --text-dark: #0f172a;
+        }
+
+        body {
+            font-family: 'Noto Sans Arabic', sans-serif;
+            background-color: var(--arch-gray);
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* نمط الورق الهندسي (Grid System) */
+        .drawing-grid {
+            background-image: radial-gradient(#cbd5e1 0.5px, transparent 0.5px);
+            background-size: 30px 30px;
+        }
+
+        .hero-title {
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+        }
+
+        /* تأثيرات الانتقال المعمارية */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 1s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .reveal-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .img-container {
+            position: relative;
+            overflow: hidden;
+            background: #000;
+            clip-path: inset(0% 0% 0% 0%);
+            transition: clip-path 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+
+        .img-container img {
+            transition: transform 1.5s scale 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+            filter: grayscale(20%);
+        }
+
+        .img-container:hover img {
+            transform: scale(1.05);
+            filter: grayscale(0%);
+        }
+
+        .line-accent {
+            width: 0;
+            height: 2px;
+            background: var(--primary-blue);
+            transition: width 0.8s ease;
+        }
+
+        .visible .line-accent {
+            width: 100px;
+        }
+
+        /* Lightbox */
+        #lightbox {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.98);
+            justify-content: center;
+            align-items: center;
+            cursor: zoom-out;
+        }
+
+        #lightbox img {
+            max-width: 85vw;
+            max-height: 85vh;
+            object-fit: contain;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.1);
+        }
+
+        .nav-fixed {
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(224, 242, 254, 0.5);
+        }
+    </style>
+</head>
+<body class="drawing-grid">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 nav-fixed bg-white/80">
+        <div class="max-w-screen-2xl mx-auto px-8 py-5 flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <span class="text-xs font-bold tracking-[0.3em] text-sky-900 border-l-2 border-sky-600 pl-4 uppercase">Archive 2026</span>
+                <span class="text-xl font-light text-slate-400">|</span>
+                <span class="text-sm font-medium text-slate-800">PHI DEPARTMENT OF ARCHITECTURE</span>
+            </div>
+            <div class="hidden lg:flex gap-12 text-[11px] font-bold tracking-widest text-slate-500 uppercase">
+                <a href="#home" class="hover:text-sky-600 transition">Perspective</a>
+                <a href="#concept" class="hover:text-sky-600 transition">Concept</a>
+                <a href="#gallery" class="hover:text-sky-600 transition">Atlas</a>
+                <a href="#contact" class="hover:text-sky-600 transition">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex flex-col justify-center px-8 lg:px-24 pt-32">
+        <div class="max-w-5xl">
+            <h2 class="text-sky-600 font-bold text-xs tracking-[0.5em] uppercase mb-8 animate__animated animate__fadeIn">The Structural Memory</h2>
+            <h1 class="hero-title text-6xl lg:text-[100px] font-light text-slate-900 mb-12 animate__animated animate__fadeInUp">
+                التكوين البصري <br>
+                <span class="font-bold italic">للمفردات المعمارية</span>
+            </h1>
+            <div class="flex flex-col lg:flex-row gap-12 items-start reveal-on-scroll">
+                <p class="text-lg text-slate-500 max-w-xl leading-relaxed font-light">
+                    نستعرض من خلال هذا الأرشيف التوثيقي تطور الكتلة الإنشائية والروحية لدفعة هندسة العمارة بمعهد الأهرام العالي. إنها رحلة في سياق "الفراغ والزمن" حيث تتحول الخطوط الهندسية إلى ذكريات إنسانية باقية.
+                </p>
+                <div class="flex flex-col gap-4">
+                    <div class="flex items-baseline gap-2">
+                        <span class="text-4xl font-bold text-sky-900 italic">PHI</span>
+                        <span class="text-slate-400 text-sm tracking-widest">EST. 2021-2026</span>
+                    </div>
+                    <div class="h-[1px] w-48 bg-slate-200"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scientific Concept Section -->
+    <section id="concept" class="py-32 px-8 lg:px-24 bg-white/50 border-y border-slate-100">
+        <div class="max-w-screen-2xl mx-auto grid lg:grid-cols-2 gap-24 items-center">
+            <div class="reveal-on-scroll">
+                <div class="line-accent mb-6"></div>
+                <h3 class="text-3xl font-bold mb-6 italic">البيئة العمرانية والوعي الجمعي</h3>
+                <p class="text-slate-600 leading-loose mb-8 text-justify font-light">
+                    تعتمد فلسفة هذا التوثيق على "التحليل السيميائي" للمكان وتأثيره على الترابط الاجتماعي للدفعة. فكل فراغ معماري داخل المعهد لم يكن مجرد أبعاد (طول، عرض، ارتفاع)، بل كان حاضنة للتفاعلات الفكرية والابتكار التصميمي. نحن هنا لا نوثق وجوهاً فقط، بل نوثق "روح المكان" (Genius Loci) الذي صاغ هويتنا المهنية.
+                </p>
+                <div class="grid grid-cols-2 gap-8 border-r-2 border-sky-100 pr-8">
+                    <div>
+                        <span class="block text-2xl font-bold text-sky-800">01</span>
+                        <span class="text-xs text-slate-400 uppercase tracking-tighter">التفاعل الكتلي</span>
+                    </div>
+                    <div>
+                        <span class="block text-2xl font-bold text-sky-800">02</span>
+                        <span class="text-xs text-slate-400 uppercase tracking-tighter">النمذجة الروحية</span>
+                    </div>
+                </div>
+            </div>
+            <div class="reveal-on-scroll relative">
+                <div class="aspect-square bg-sky-50 rounded-full absolute -top-12 -left-12 w-64 h-64 -z-10 blur-3xl opacity-50"></div>
+                <img src="https://i.postimg.cc/YGNyDrZq/Whats-App-Image-2026-04-23-at-12-40-37.jpg" class="w-full h-[500px] object-cover grayscale hover:grayscale-0 transition duration-1000 shadow-2xl rounded-sm" alt="Analysis">
+            </div>
+        </div>
+    </section>
+
+    <!-- Visual Atlas (Gallery) -->
+    <section id="gallery" class="py-32 px-8">
+        <div class="max-w-screen-2xl mx-auto">
+            <div class="flex justify-between items-end mb-20 reveal-on-scroll">
+                <div>
+                    <h4 class="text-xs font-bold text-sky-600 tracking-[0.4em] uppercase mb-4 italic">The Visual Atlas</h4>
+                    <h2 class="text-4xl font-light">الأطلس البصري للدفعة</h2>
+                </div>
+                <div class="text-slate-400 text-xs tracking-widest uppercase hidden lg:block">
+                    Architectural Documentation / Volume 01
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1px bg-slate-200 p-[1px]">
+                <!-- Item 1 -->
+                <div class="bg-white p-6 reveal-on-scroll cursor-pointer" onclick="openLightbox('https://i.postimg.cc/zyMMVPTC/Whats-App-Image-2026-04-23-at-12-39-10.jpg')">
+                    <div class="img-container aspect-video mb-6">
+                        <img src="https://i.postimg.cc/zyMMVPTC/Whats-App-Image-2026-04-23-at-12-39-10.jpg" class="w-full h-full object-cover" alt="Section 01">
+                    </div>
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h5 class="font-bold text-sm mb-1 uppercase">Analysis A-01</h5>
+                            <p class="text-[10px] text-slate-400 uppercase tracking-widest">Entry Context / PHI Steps</p>
+                        </div>
+                        <span class="text-[10px] font-mono text-slate-300">#0423-1</span>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="bg-white p-6 reveal-on-scroll cursor-pointer" onclick="openLightbox('https://i.postimg.cc/qt3FnXGZ/Whats-App-Image-2026-04-23-at-12-39-32.jpg')">
+                    <div class="img-container aspect-video mb-6">
+                        <img src="https://i.postimg.cc/qt3FnXGZ/Whats-App-Image-2026-04-23-at-12-39-32.jpg" class="w-full h-full object-cover" alt="Section 02">
+                    </div>
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h5 class="font-bold text-sm mb-1 uppercase">Celebration / Unity</h5>
+                            <p class="text-[10px] text-slate-400 uppercase tracking-widest">Social Morphology</p>
+                        </div>
+                        <span class="text-[10px] font-mono text-slate-300">#0423-2</span>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="bg-white p-6 reveal-on-scroll cursor-pointer" onclick="openLightbox('https://i.postimg.cc/d7yfdm9m/Whats-App-Image-2026-04-23-at-12-39-12.jpg')">
+                    <div class="img-container aspect-video mb-6">
+                        <img src="https://i.postimg.cc/d7yfdm9m/Whats-App-Image-2026-04-23-at-12-39-12.jpg" class="w-full h-full object-cover" alt="Section 03">
+                    </div>
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h5 class="font-bold text-sm mb-1 uppercase">External Environment</h5>
+                            <p class="text-[10px] text-slate-400 uppercase tracking-widest">Site Analysis / Trip</p>
+                        </div>
+                        <span class="text-[10px] font-mono text-slate-300">#0423-3</span>
+                    </div>
+                </div>
+
+                <!-- Item 4 -->
+                <div class="bg-white p-6 reveal-on-scroll cursor-pointer" onclick="openLightbox('https://i.postimg.cc/ZvTsGkzg/Whats-App-Image-2026-04-23-at-12-39-14.jpg')">
+                    <div class="img-container aspect-video mb-6">
+                        <img src="https://i.postimg.cc/ZvTsGkzg/Whats-App-Image-2026-04-23-at-12-39-14.jpg" class="w-full h-full object-cover" alt="Section 04">
+                    </div>
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h5 class="font-bold text-sm mb-1 uppercase">Nightscape Study</h5>
+                            <p class="text-[10px] text-slate-400 uppercase tracking-widest">Light & Shadow / Gathering</p>
+                        </div>
+                        <span class="text-[10px] font-mono text-slate-300">#0423-4</span>
+                    </div>
+                </div>
+
+                <!-- Item 5 -->
+                <div class="bg-white p-6 reveal-on-scroll cursor-pointer" onclick="openLightbox('https://i.postimg.cc/8Jg0bJy9/Whats-App-Image-2026-04-23-at-12-40-37-(1).jpg')">
+                    <div class="img-container aspect-video mb-6">
+                        <img src="https://i.postimg.cc/8Jg0bJy9/Whats-App-Image-2026-04-23-at-12-40-37-(1).jpg" class="w-full h-full object-cover" alt="Section 05">
+                    </div>
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h5 class="font-bold text-sm mb-1 uppercase">Organic Interaction</h5>
+                            <p class="text-[10px] text-slate-400 uppercase tracking-widest">Domestic Space / Breakfast</p>
+                        </div>
+                        <span class="text-[10px] font-mono text-slate-300">#0423-5</span>
+                    </div>
+                </div>
+
+                <!-- Item 6 -->
+                <div class="bg-white p-6 reveal-on-scroll cursor-pointer" onclick="openLightbox('https://i.postimg.cc/YGNyDrZq/Whats-App-Image-2026-04-23-at-12-40-37.jpg')">
+                    <div class="img-container aspect-video mb-6">
+                        <img src="https://i.postimg.cc/YGNyDrZq/Whats-App-Image-2026-04-23-at-12-40-37.jpg" class="w-full h-full object-cover" alt="Section 06">
+                    </div>
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h5 class="font-bold text-sm mb-1 uppercase">Master Composition</h5>
+                            <p class="text-[10px] text-slate-400 uppercase tracking-widest">Final Assembly</p>
+                        </div>
+                        <span class="text-[10px] font-mono text-slate-300">#0423-6</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Professional Quote -->
+    <section class="py-48 px-8 bg-sky-900 text-white text-center">
+        <div class="max-w-4xl mx-auto reveal-on-scroll">
+            <h2 class="text-4xl lg:text-5xl font-light mb-12 leading-tight">
+                "إننا لا نبني فحسب، إننا نترك أثراً في الوعي الزماني والمكاني لكل من يمر عبر مشاريعنا."
+            </h2>
+            <div class="h-px w-20 bg-sky-400 mx-auto mb-6"></div>
+            <p class="text-xs tracking-[1em] text-sky-300 uppercase">ARCHITECTS CLASS OF 2026</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="py-20 px-8 bg-white border-t border-slate-100">
+        <div class="max-w-screen-2xl mx-auto flex flex-col lg:flex-row justify-between items-start gap-12">
+            <div>
+                <div class="text-2xl font-bold tracking-tighter mb-4 italic">PHI. ARCHIVE</div>
+                <p class="text-slate-400 text-xs max-w-xs leading-loose">
+                    قسم الهندسة المعمارية بمعهد الأهرام العالي للهندسة والتكنولوجيا. وثيقة بصرية غير رسمية مخصصة للذكرى والتواصل المعرفي بين خريجي الدفعة.
+                </p>
+            </div>
+            <div class="grid grid-cols-2 gap-24">
+                <div>
+                    <h6 class="text-[10px] font-bold text-slate-800 uppercase tracking-widest mb-6">Sections</h6>
+                    <ul class="text-xs text-slate-500 space-y-4">
+                        <li><a href="#" class="hover:text-sky-600">Site Plan</a></li>
+                        <li><a href="#" class="hover:text-sky-600">Elevations</a></li>
+                        <li><a href="#" class="hover:text-sky-600">Detailing</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h6 class="text-[10px] font-bold text-slate-800 uppercase tracking-widest mb-6">Contact Info</h6>
+                    <ul class="text-xs text-slate-500 space-y-4">
+                        <li>Giza, Egypt</li>
+                        <li>PHI University Hub</li>
+                        <li>Arch_2026@phi.edu</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="max-w-screen-2xl mx-auto mt-20 pt-8 border-t border-slate-50 flex justify-between items-center text-[10px] text-slate-300 uppercase tracking-[0.2em]">
+            <span>&copy; 2026 All Conceptual Rights Reserved</span>
+            <span>Designed for Excellence</span>
+        </div>
+    </footer>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox" onclick="this.style.display='none'">
+        <img id="lightbox-img" src="" alt="Blueprint Detail">
+    </div>
+
+    <script>
+        // تفعيل الظهور عند السكرول بنظام "Intersecting Observer" الأسرع والأكثر بروفيشنال
+        const observerOptions = { threshold: 0.1 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+
+        // Lightbox Functionality
+        function openLightbox(src) {
+            const lb = document.getElementById('lightbox');
+            const img = document.getElementById('lightbox-img');
+            img.src = src;
+            lb.style.display = 'flex';
+        }
+    </script>
+</body>
+</html>
