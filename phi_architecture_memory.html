@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>معرض ذكريات الدفعة | PHI - قسم العمارة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: #fefcf8;
+            color: #1e3e4a;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        /* خلفية متدرجة ونمط معماري */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 10% 20%, rgba(180, 224, 255, 0.15) 0%, rgba(255, 245, 225, 0.1) 90%);
+            pointer-events: none;
+            z-index: -2;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(200, 225, 245, 0.2) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(200, 225, 245, 0.2) 1px, transparent 1px);
+            background-size: 55px 55px;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* شاشة الترحيب */
+        .splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #fefbf5, #eef4fc);
+            z-index: 10000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            transition: opacity 0.8s cubic-bezier(0.2, 0.9, 0.4, 1.1), visibility 0.8s ease;
+            backdrop-filter: blur(2px);
+        }
+
+        .splash-content {
+            text-align: center;
+            animation: fadeInUp 1s ease;
+            max-width: 85vw;
+            padding: 20px;
+        }
+
+        .splash-content img {
+            max-width: 100%;
+            max-height: 65vh;
+            border-radius: 32px;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.2);
+            border: 4px solid white;
+            margin-bottom: 24px;
+        }
+
+        .welcome-message {
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: linear-gradient(125deg, #1e5975, #e09d6b);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+            margin-bottom: 16px;
+        }
+
+        .sub-message {
+            font-size: 1.1rem;
+            color: #4f7d8f;
+            font-weight: 500;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 28px;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 70px 20px 50px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(125deg, #1e5975, #4b8da2, #e09d6b);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .hero .sub {
+            font-size: 1.35rem;
+            font-weight: 600;
+            color: #2c6a7e;
+            border-bottom: 3px solid #e09d6b;
+            display: inline-block;
+            padding-bottom: 8px;
+            margin-top: 12px;
+        }
+
+        .arch-badge {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .arch-badge span {
+            background: rgba(255, 250, 240, 0.85);
+            backdrop-filter: blur(6px);
+            padding: 8px 24px;
+            border-radius: 60px;
+            font-weight: 600;
+            color: #2a5f74;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+            border: 1px solid rgba(224, 157, 107, 0.3);
+        }
+
+        .arch-divider {
+            width: 100px;
+            height: 4px;
+            background: #e09d6b;
+            margin: 32px auto 0;
+            border-radius: 4px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin: 50px 0 40px;
+        }
+        .section-title h2 {
+            font-size: 2.3rem;
+            font-weight: 700;
+            color: #1c5a70;
+        }
+        .section-title span {
+            font-size: 1rem;
+            color: #7e9aa8;
+            display: block;
+            margin-top: 10px;
+        }
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: #b4e0ff;
+            margin: 18px auto 0;
+            border-radius: 3px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 28px;
+            margin-bottom: 80px;
+        }
+
+        .gallery-card {
+            background: white;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            cursor: pointer;
+            border: 1px solid #eef4fa;
+            transform: translateY(0);
+        }
+
+        .gallery-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 28px 40px rgba(0, 0, 0, 0.12);
+            border-color: #cde6f5;
+        }
+
+        .gallery-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-card:hover img {
+            transform: scale(1.02);
+        }
+
+        /* لا يوجد أي نص تحت الصور */
+        .fullscreen-lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(8, 15, 20, 0.97);
+            backdrop-filter: blur(20px);
+            z-index: 4000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0.2s, opacity 0.35s ease;
+        }
+
+        .fullscreen-lightbox.active {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .fs-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .fs-image {
+            max-width: 92vw;
+            max-height: 88vh;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            transition: opacity 0.25s ease;
+            background: #0a1217;
+        }
+
+        .fs-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 242, 225, 0.9);
+            backdrop-filter: blur(12px);
+            border: none;
+            width: 56px;
+            height: 56px;
+            border-radius: 60px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #2c5f72;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 4100;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .fs-nav:hover {
+            background: #e09d6b;
+            color: white;
+            transform: translateY(-50%) scale(1.07);
+        }
+
+        .fs-prev { left: 25px; }
+        .fs-next { right: 25px; }
+
+        .fs-close {
+            position: absolute;
+            top: 28px;
+            right: 35px;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(8px);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.8rem;
+            color: white;
+            transition: 0.2s;
+            z-index: 4100;
+            border: 1px solid rgba(255,255,200,0.3);
+        }
+
+        .fs-close:hover {
+            background: #e09d6b;
+            transform: scale(1.05);
+        }
+
+        .fs-counter {
+            position: absolute;
+            top: 28px;
+            left: 35px;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(8px);
+            padding: 8px 20px;
+            border-radius: 60px;
+            color: white;
+            font-weight: 500;
+            font-size: 0.9rem;
+            z-index: 4100;
+        }
+
+        @media (max-width: 700px) {
+            .fs-nav { width: 44px; height: 44px; font-size: 1.5rem; }
+            .fs-prev { left: 12px; }
+            .fs-next { right: 12px; }
+            .fs-close { top: 18px; right: 18px; width: 44px; height: 44px; }
+            .fs-counter { top: 18px; left: 18px; font-size: 0.75rem; padding: 5px 14px; }
+            .gallery-grid { gap: 20px; }
+            .hero h1 { font-size: 2rem; }
+            .welcome-message { font-size: 1.5rem; }
+            .sub-message { font-size: 0.9rem; }
+        }
+
+        footer {
+            background: linear-gradient(110deg, #eef4fc, #fff6ec);
+            padding: 50px 20px 50px;
+            text-align: center;
+            border-radius: 56px 56px 0 0;
+            margin-top: 40px;
+            border-top: 2px solid #ffe0bc;
+        }
+
+        .footer-content p {
+            color: #2b5b6e;
+            margin: 12px 0;
+            font-weight: 500;
+            line-height: 1.7;
+        }
+
+        .thankyou-text {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto 20px;
+        }
+
+        .faculty-thanks {
+            background: #fff3e6;
+            display: inline-block;
+            padding: 12px 28px;
+            border-radius: 60px;
+            color: #b45a2e;
+            font-weight: 600;
+            margin-top: 15px;
+            font-size: 0.95rem;
+        }
+
+        .loading-placeholder {
+            text-align: center;
+            padding: 60px;
+            font-size: 1.2rem;
+            color: #7ca0ae;
+        }
+    </style>
+</head>
+<body>
+
+<!-- شاشة الترحيب -->
+<div id="splashScreen" class="splash-screen">
+    <div class="splash-content">
+        <img src="https://i.postimg.cc/nc5YKPkQ/image.png" alt="Welcome Class of 2026">
+        <div class="welcome-message">🎓 Welcome, Class of 2026! 🎓</div>
+        <div class="sub-message">Memories that will last forever — PHI Architecture Department</div>
+    </div>
+</div>
+
+<div class="hero">
+    <div class="container">
+        <h1>🧱 ذاكرة العمارة الخالدة 🧱</h1>
+        <div class="sub">دفعة معهد الأهرامات العالي للهندسة والتكنولوجيا | PHI - قسم العمارة</div>
+        <div class="arch-badge">
+            <span><i class="fas fa-drafting-compass"></i> Architectural Soul</span>
+            <span><i class="fas fa-landmark"></i> Egyptian Identity</span>
+            <span><i class="fas fa-images"></i> 30 لحظة خالدة</span>
+        </div>
+        <div class="arch-divider"></div>
+        <p style="margin-top: 26px; max-width: 680px; margin-inline: auto; color: #4f7d8f;">انقر على أي صورة لتغمر شاشتك بالذاكرة — بدون كلام، فقط المشاعر.</p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="section-title">
+        <h2><i class="fas fa-camera-retro" style="margin-left: 12px; color: #e09d6b;"></i> معرض الذكريات</h2>
+        <span>تنقل سلس — صور تملأ الشاشة</span>
+    </div>
+    <div id="galleryGrid" class="gallery-grid">
+        <div class="loading-placeholder"><i class="fas fa-spinner fa-pulse"></i> جاري تحميل الذكريات...</div>
+    </div>
+</div>
+
+<!-- Lightbox بدون أي تعليقات -->
+<div id="fullscreenLightbox" class="fullscreen-lightbox">
+    <div class="fs-wrapper">
+        <button class="fs-close" id="fsCloseBtn"><i class="fas fa-times"></i></button>
+        <div class="fs-counter" id="fsCounter">1 / 30</div>
+        <img id="fsImage" class="fs-image" src="" alt="ذكرى">
+        <button class="fs-nav fs-prev" id="fsPrevBtn"><i class="fas fa-chevron-right"></i></button>
+        <button class="fs-nav fs-next" id="fsNextBtn"><i class="fas fa-chevron-left"></i></button>
+    </div>
+</div>
+
+<footer>
+    <div class="container footer-content">
+        <div class="thankyou-text">
+            <p><i class="fas fa-heart" style="color: #e09d6b;"></i>  إلى كل روح سكنت هذه القاعات، وإلى كل ضحكة جمعتنا، وإلى الأيام التي علمتنا معنى العمارة ليس مجرد حجر بل حب وإخاء  <i class="fas fa-heart" style="color: #e09d6b;"></i></p>
+            <p>شكراً لكل لحظة عشناها سوياً، لكل حلم رسمنا خطوطه الأولى، وللذكرى التي ستظل تنبض بيننا.</p>
+        </div>
+        <div class="faculty-thanks">
+            <i class="fas fa-chalkboard-user"></i> كل التقدير والاحترام لأساتذتنا الأفاضل والمعيدين المخلصين في قسم العمارة — أنتم نور دربنا
+        </div>
+        <p style="margin-top: 30px; font-size: 0.8rem;">دفعة 2026 - معهد الأهرامات العالي للهندسة والتكنولوجيا | PHI</p>
+    </div>
+</footer>
+
+<script>
+    // قائمة الصور (بدون أي نصوص أسفلها أو داخلها)
+    const imagesData = [
+        { src: "https://i.postimg.cc/nc5YKPkQ/image.png", alt: "Welcome Class of 2026" },
+        { src: "https://i.postimg.cc/jq9Dgsh5/Whats-App-Image-2026-04-23-at-12-39-10.jpg", alt: "ذكرى" },
+        { src: "https://i.postimg.cc/CMtRPF4Z/Whats-App-Image-2026-04-23-at-12-39-12.jpg", alt: "ذكرى" },
+        { src: "https://i.postimg.cc/SNMJHwZY/Whats-App-Image-2026-04-23-at-12-39-14.jpg", alt: "ذكرى" },
+        { src: "https://i.postimg.cc/bYMZCzRD/Whats-App-Image-2026-04-23-at-12-39-32.jpg", alt: "ذكرى" },
+        { src: "https://i.postimg.cc/NfH5ZWNL/Whats-App-Image-2026-04-23-at-12-40-37.jpg", alt: "ذكرى" },
+        { src: "https://i.postimg.cc/rFrK7vhp/Whats-App-Image-2026-04-23-at-12-40-37-(1).jpg", alt: "ذكرى" },
+        { src: "https://i.postimg.cc/Jht8wtJV/Whats-App-Image-2026-04-25-at-15-10-06.jpg", alt: "ذكرى" },
+        { src: "https://i.postimg.cc/0NrvgrSH/Whats-App-Image-2026-04-25-at-15-10-06-(1).jpg", alt: "ذكرى" },
+        { src: "https://i.postimg.cc/Jht8wtJw/Whats-App-Image-2026-04-25-at-15-10-06-(2).jpg", alt: "ذكرى" },
+        { src: "https://i.postimg.cc/fbks4kdG/Whats-App-Image-2026-04-25-at-15-10-06-(3).jpg", alt: "ذكرى" },
+        { src: "https://i.postimg.cc/KYV2mF7C/Whats-App-Image-2026-04-25-at-15-10-07.jpg", alt: "ذكرى" },
+        { src: "https://i.postimg.cc/XvXWMX5T/Whats-App-Image-2026-04-25-at-15-10-07-(1).jpg", alt: "ذكرى" },
+        { src: "https://i.postimg.cc/R08Bv91p/Whats-App-Image-2026-04-25-at-15-10-07-(2).jpg", alt: "ذكرى" },
+        { src: "https://i.postimg.cc/DzmhVmsT/Whats-App-Image-2026-04-25-at-15-10-07-(3).jpg", alt: "ذكرى" },
+        { src: "https://i.postimg.cc/jj9bRK6k/Whats-App-Image-2026-04-25-at-15-10-07-(4).jpg", alt: "ذكرى" },
+        { src: "https://i.postimg.cc/5tGVf15R/Whats-App-Image-2026-04-25-at-15-10-07-(5).jpg", alt: "ذكرى" },
+        { src: "https://i.postimg.cc/9fShcVtW/Whats-App-Image-2026-04-25-at-15-10-08.jpg", alt: "ذكرى" },
+        { src: "https://i.postimg.cc/cJjSdZ7p/Whats-App-Image-2026-04-25-at-15-10-08-(1).jpg", alt: "ذكرى" },
+        { src: "https://i.postimg.cc/hGwBKgbF/Whats-App-Image-2026-04-25-at-15-10-08-(2).jpg", alt: "ذكرى" },
+        { src: "https://i.postimg.cc/fbFNMZjn/Whats-App-Image-2026-04-25-at-15-10-08-(3).jpg", alt: "ذكرى" },
+        { src: "https://i.postimg.cc/N0VcQY7v/Whats-App-Image-2026-04-25-at-15-10-08-(4).jpg", alt: "ذكرى" },
+        { src: "https://i.postimg.cc/jj9bRKQr/Whats-App-Image-2026-04-25-at-15-10-08-(5).jpg", alt: "ذكرى" },
+        { src: "https://i.postimg.cc/yN5H7BXK/Whats-App-Image-2026-04-25-at-15-10-08-(6).jpg", alt: "ذكرى" },
+        { src: "https://i.postimg.cc/Bvy0JscJ/Whats-App-Image-2026-04-25-at-15-10-08-(7).jpg", alt: "ذكرى" },
+        { src: "https://i.postimg.cc/JhgLRmcm/Whats-App-Image-2026-04-25-at-15-10-08-(8).jpg", alt: "ذكرى" },
+        { src: "https://i.postimg.cc/xd729Yy8/Whats-App-Image-2026-04-25-at-15-10-09.jpg", alt: "ذكرى" },
+        { src: "https://i.postimg.cc/g05WGdqc/Whats-App-Image-2026-04-25-at-15-10-09-(1).jpg", alt: "ذكرى" },
+        { src: "https://i.postimg.cc/Bvy0Jscn/Whats-App-Image-2026-04-25-at-15-10-09-(2).jpg", alt: "ذكرى" },
+        { src: "https://i.postimg.cc/YSVHtkf9/Whats-App-Image-2026-04-25-at-15-10-09-(3).jpg", alt: "ذكرى" }
+    ];
+
+    let currentImages = [...imagesData];
+    let currentIndex = 0;
+    let isTransitioning = false;
+    const galleryDiv = document.getElementById('galleryGrid');
+    const lightbox = document.getElementById('fullscreenLightbox');
+    const fsImage = document.getElementById('fsImage');
+    const fsCounter = document.getElementById('fsCounter');
+    const fsPrev = document.getElementById('fsPrevBtn');
+    const fsNext = document.getElementById('fsNextBtn');
+    const fsClose = document.getElementById('fsCloseBtn');
+
+    function buildGallery() {
+        if (!currentImages.length) {
+            galleryDiv.innerHTML = '<div class="loading-placeholder">✨ لا توجد صور ✨</div>';
+            return;
+        }
+        let html = '';
+        currentImages.forEach((img, idx) => {
+            html += `
+                <div class="gallery-card" data-index="${idx}">
+                    <img src="${img.src}" alt="${img.alt}" loading="lazy">
+                </div>
+            `;
+        });
+        galleryDiv.innerHTML = html;
+        document.querySelectorAll('.gallery-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const idx = parseInt(card.getAttribute('data-index'));
+                if (!isNaN(idx)) openLightbox(idx);
+            });
+        });
+    }
+
+    function openLightbox(index) {
+        if (isTransitioning) return;
+        currentIndex = index;
+        updateLightboxContent(true);
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function updateLightboxContent(initial = false) {
+        const imgData = currentImages[currentIndex];
+        if (!imgData) return;
+        const total = currentImages.length;
+        if (initial) {
+            fsImage.style.transition = 'none';
+            fsImage.src = imgData.src;
+            fsImage.alt = imgData.alt;
+            fsCounter.innerText = `${currentIndex+1} / ${total}`;
+            fsImage.style.opacity = '1';
+            fsImage.offsetHeight;
+            fsImage.style.transition = 'opacity 0.25s ease';
+        } else {
+            fsImage.style.opacity = '0';
+            setTimeout(() => {
+                fsImage.src = imgData.src;
+                fsImage.alt = imgData.alt;
+                fsCounter.innerText = `${currentIndex+1} / ${total}`;
+                setTimeout(() => { fsImage.style.opacity = '1'; }, 30);
+            }, 160);
+        }
+        fsCounter.innerText = `${currentIndex+1} / ${total}`;
+    }
+
+    function nextImage() {
+        if (isTransitioning) return;
+        isTransitioning = true;
+        currentIndex = (currentIndex + 1) % currentImages.length;
+        updateLightboxContent();
+        setTimeout(() => { isTransitioning = false; }, 280);
+    }
+
+    function prevImage() {
+        if (isTransitioning) return;
+        isTransitioning = true;
+        currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
+        updateLightboxContent();
+        setTimeout(() => { isTransitioning = false; }, 280);
+    }
+
+    function closeLightbox() {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+        fsImage.style.opacity = '1';
+    }
+
+    fsClose.addEventListener('click', closeLightbox);
+    fsPrev.addEventListener('click', prevImage);
+    fsNext.addEventListener('click', nextImage);
+    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+    window.addEventListener('keydown', (e) => {
+        if (!lightbox.classList.contains('active')) return;
+        if (e.key === 'ArrowRight') prevImage();
+        else if (e.key === 'ArrowLeft') nextImage();
+        else if (e.key === 'Escape') closeLightbox();
+    });
+
+    const splash = document.getElementById('splashScreen');
+    function hideSplash() {
+        splash.style.opacity = '0';
+        splash.style.visibility = 'hidden';
+        setTimeout(() => { splash.style.display = 'none'; }, 800);
+    }
+    setTimeout(hideSplash, 3000);
+    splash.addEventListener('click', hideSplash);
+
+    buildGallery();
+</script>
+</body>
+</html>
