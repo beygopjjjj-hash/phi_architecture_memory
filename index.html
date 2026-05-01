@@ -474,11 +474,65 @@
 </footer>
 
 <script>
-    // القائمة الجديدة مرتبة يدوياً من الأحدث (2026-04-26) إلى الأقدم
-    const imagesList = [
-        // صورة الترحيب تظل الأولى
-        "https://i.postimg.cc/nc5YKPkQ/image.png",
-        // الأحدث: 2026-04-26
+    // دمج القائمة القديمة مع الصور الجديدة (مرتبة من الأحدث إلى الأقدم)
+    // الصور الجديدة (تواريخ 2026-05-01، 2026-04-30، 2026-04-29) توضع أولاً
+    const newImages = [
+        // 2026-05-01 (الأحدث)
+        "https://i.postimg.cc/44zDWwS3/Whats-App-Image-2026-05-01-at-22-07-59.jpg",
+        "https://i.postimg.cc/xjKw6g4D/Whats-App-Image-2026-05-01-at-22-07-59-(1).jpg",
+        "https://i.postimg.cc/wxhCwFGp/Whats-App-Image-2026-05-01-at-22-07-59-(2).jpg",
+        "https://i.postimg.cc/1RpkvMjy/Whats-App-Image-2026-05-01-at-22-07-59-(3).jpg",
+        "https://i.postimg.cc/9XG6L1nX/Whats-App-Image-2026-05-01-at-22-07-59-(4).jpg",
+        "https://i.postimg.cc/VsjxK4VL/Whats-App-Image-2026-05-01-at-22-07-59-(5).jpg",
+        "https://i.postimg.cc/HWQq63hk/Whats-App-Image-2026-05-01-at-22-07-59-(6).jpg",
+        "https://i.postimg.cc/G3kWXz5t/Whats-App-Image-2026-05-01-at-22-08-00.jpg",
+        "https://i.postimg.cc/dQ8b5nx1/Whats-App-Image-2026-05-01-at-22-08-00-(1).jpg",
+        "https://i.postimg.cc/QxhRw52K/Whats-App-Image-2026-05-01-at-22-21-33.jpg",
+        "https://i.postimg.cc/c1QpFTbv/Whats-App-Image-2026-05-01-at-22-21-33-(1).jpg",
+        "https://i.postimg.cc/MZyC9tFf/Whats-App-Image-2026-05-01-at-22-21-33-(2).jpg",
+        "https://i.postimg.cc/3JYPVpsJ/Whats-App-Image-2026-05-01-at-22-21-33-(3).jpg",
+        "https://i.postimg.cc/SNkw38Bj/Whats-App-Image-2026-05-01-at-22-21-33-(4).jpg",
+        "https://i.postimg.cc/X74TmFRG/Whats-App-Image-2026-05-01-at-22-21-33-(5).jpg",
+        "https://i.postimg.cc/CL7Wg502/Whats-App-Image-2026-05-01-at-22-21-34.jpg",
+        "https://i.postimg.cc/jdtGmNp7/Whats-App-Image-2026-05-01-at-22-21-34-(1).jpg",
+        "https://i.postimg.cc/tCpLwPK6/Whats-App-Image-2026-05-01-at-22-21-34-(2).jpg",
+        "https://i.postimg.cc/WbTQCrB0/Whats-App-Image-2026-05-01-at-22-21-34-(3).jpg",
+        "https://i.postimg.cc/KvxdwL6N/Whats-App-Image-2026-05-01-at-22-21-34-(4).jpg",
+        "https://i.postimg.cc/bNpKWb7L/Whats-App-Image-2026-05-01-at-22-21-34-(5).jpg",
+        "https://i.postimg.cc/rFjvksTS/Whats-App-Image-2026-05-01-at-22-21-34-(6).jpg",
+        "https://i.postimg.cc/Fsp24zvW/Whats-App-Image-2026-05-01-at-22-21-34-(7).jpg",
+        "https://i.postimg.cc/PryBjJhT/Whats-App-Image-2026-05-01-at-22-21-35.jpg",
+        "https://i.postimg.cc/28GPDymR/Whats-App-Image-2026-05-01-at-22-21-35-(1).jpg",
+        "https://i.postimg.cc/YqRJH0kB/Whats-App-Image-2026-05-01-at-22-21-35-(2).jpg",
+        "https://i.postimg.cc/zX79rv5r/Whats-App-Image-2026-05-01-at-22-21-35-(3).jpg",
+        // 2026-04-30
+        "https://i.postimg.cc/3NCzWJvR/Whats-App-Image-2026-04-30-at-17-41-39.jpg",
+        "https://i.postimg.cc/C5H9dLqz/Whats-App-Image-2026-04-30-at-17-41-39-(1).jpg",
+        "https://i.postimg.cc/qqXWgM33/Whats-App-Image-2026-04-30-at-17-41-43.jpg",
+        "https://i.postimg.cc/7hMjbY25/Whats-App-Image-2026-04-30-at-17-41-43-(1).jpg",
+        "https://i.postimg.cc/MHbgXKQM/Whats-App-Image-2026-04-30-at-17-41-43-(2).jpg",
+        "https://i.postimg.cc/cCMP64nY/Whats-App-Image-2026-04-30-at-17-41-44.jpg",
+        "https://i.postimg.cc/rsC7zFrx/Whats-App-Image-2026-04-30-at-17-43-15.jpg",
+        "https://i.postimg.cc/VvB25LC9/Whats-App-Image-2026-04-30-at-17-43-16.jpg",
+        "https://i.postimg.cc/fyj1kT9f/Whats-App-Image-2026-04-30-at-17-43-18.jpg",
+        "https://i.postimg.cc/wxhCwFbn/Whats-App-Image-2026-04-30-at-22-42-29.jpg",
+        "https://i.postimg.cc/Y215d8yZ/Whats-App-Image-2026-04-30-at-22-42-33.jpg",
+        "https://i.postimg.cc/xjKw6gFw/Whats-App-Image-2026-04-30-at-23-42-46.jpg",
+        "https://i.postimg.cc/2j4s0TKp/Whats-App-Image-2026-04-30-at-23-51-36.jpg",
+        // 2026-04-29
+        "https://i.postimg.cc/Y0wJpmhS/Whats-App-Image-2026-04-29-at-14-59-32.jpg",
+        "https://i.postimg.cc/brjKz2sP/Whats-App-Image-2026-04-29-at-14-59-32-(1).jpg",
+        "https://i.postimg.cc/RhzjMnNZ/Whats-App-Image-2026-04-29-at-14-59-34.jpg",
+        "https://i.postimg.cc/3NCzWJvQ/Whats-App-Image-2026-04-29-at-15-35-49.jpg",
+        "https://i.postimg.cc/GtJ69hyp/Whats-App-Image-2026-04-29-at-15-48-17.jpg",
+        "https://i.postimg.cc/hvqHS7fP/Whats-App-Image-2026-04-29-at-15-48-17-(1).jpg"
+    ];
+
+    // القائمة القديمة (التي تم تجميعها سابقاً) - جميع الصور ما عدا التي تواريخها 2026-05-01، 2026-04-30، 2026-04-29
+    // لكن لتجنب الازدواجية، سنستخدم القائمة القديمة الكاملة التي كانت موجودة قبل الإضافة الجديدة،
+    // مع إزالة أي صور قد تكون مكررة (لن تكون مكررة لأن الجديدة بأسماء مختلفة)
+    // القائمة القديمة من الكود السابق (بدون الصور الجديدة)
+    const oldImages = [
         "https://i.postimg.cc/LX2gddTx/Whats-App-Image-2026-04-26-at-00-09-09.jpg",
         "https://i.postimg.cc/V6m0yyRg/Whats-App-Image-2026-04-26-at-00-09-09-(1).jpg",
         "https://i.postimg.cc/0QPKggfZ/Whats-App-Image-2026-04-26-at-00-09-09-(2).jpg",
@@ -490,7 +544,6 @@
         "https://i.postimg.cc/sXsGFFc0/Whats-App-Image-2026-04-26-at-00-09-11-(2).jpg",
         "https://i.postimg.cc/B64PWWgy/Whats-App-Image-2026-04-26-at-00-09-11-(3).jpg",
         "https://i.postimg.cc/rmMR66J7/Whats-App-Image-2026-04-26-at-00-09-11-(4).jpg",
-        // ثم 2026-04-25
         "https://i.postimg.cc/Jht8wtJV/Whats-App-Image-2026-04-25-at-15-10-06.jpg",
         "https://i.postimg.cc/Jht8wtJw/Whats-App-Image-2026-04-25-at-15-10-06-(2).jpg",
         "https://i.postimg.cc/KYV2mF7C/Whats-App-Image-2026-04-25-at-15-10-07.jpg",
@@ -529,7 +582,6 @@
         "https://i.postimg.cc/63t4ss0V/Whats-App-Image-2026-04-25-at-19-06-43-(3).jpg",
         "https://i.postimg.cc/0QPKggff/Whats-App-Image-2026-04-25-at-19-06-44.jpg",
         "https://i.postimg.cc/0QPKggfC/Whats-App-Image-2026-04-25-at-19-06-44-(1).jpg",
-        // باقي الصور بدون تاريخ واضح في الاسم (نعتبرها أقدم)
         "https://i.postimg.cc/8PB3DLNy/6bbde1b9-d8f7-4d53-9829-509c78dd3608.jpg",
         "https://i.postimg.cc/RVQ89wvr/ARAT2083.jpg",
         "https://i.postimg.cc/GmLfp9m5/AWXD1040.jpg",
@@ -597,6 +649,10 @@
         "https://i.postimg.cc/R0rnRJJP/MGNP0942.jpg",
         "https://i.postimg.cc/nL8Qk99w/MPGY7367.jpg"
     ];
+
+    // دمج القوائم: صورة الترحيب + الصور الجديدة (الأحدث) + الصور القديمة
+    const welcomeImage = "https://i.postimg.cc/nc5YKPkQ/image.png";
+    const imagesList = [welcomeImage, ...newImages, ...oldImages];
 
     let currentImages = [...imagesList];
     let currentIndex = 0;
