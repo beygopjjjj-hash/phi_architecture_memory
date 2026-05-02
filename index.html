@@ -709,28 +709,44 @@
     </div>
 </div>
 
-<!-- مودال لوحة الإدارة -->
+<!-- مودال لوحة الإدارة المعدلة -->
 <div id="adminModal" class="modal">
     <div class="modal-box admin-panel">
         <h2><i class="fas fa-sliders-h"></i> لوحة الإدارة</h2>
+        
+        <!-- إضافة روابط متعددة دفعة واحدة -->
         <div style="margin: 20px 0;">
-            <h4>➕ إضافة صورة جديدة</h4>
+            <h4>📎 إضافة روابط متعددة دفعة واحدة</h4>
+            <textarea id="bulkUrls" rows="5" placeholder="ضع كل رابط في سطر منفصل&#10;https://example.com/image1.jpg&#10;https://example.com/image2.png" style="width:100%; padding:12px; border-radius:24px; background:var(--input-bg); border:1px solid var(--card-border); color:var(--text-primary); direction:ltr; font-family:monospace;"></textarea>
+            <button id="addBulkBtn" class="admin-btn" style="margin-top:8px;"><i class="fas fa-layer-group"></i> ➕ إضافة الكل وحفظ</button>
+        </div>
+        
+        <div style="margin: 20px 0;">
+            <h4>➕ إضافة صورة جديدة (فردي)</h4>
             <div style="display: flex; gap: 10px; flex-wrap: wrap;">
                 <input type="text" id="newImageUrl" placeholder="رابط الصورة (Direct URL)" style="flex:1; padding: 10px; border-radius: 60px;">
-                <button id="addImageBtn" class="admin-btn">إضافة</button>
+                <button id="addImageBtn" class="admin-btn">إضافة وحفظ</button>
             </div>
             <div id="adminImagesList" class="image-grid-admin"></div>
         </div>
+        
         <div style="margin: 20px 0;">
             <h4>📝 تعديل النص التذكاري</h4>
             <textarea id="editTributeText" rows="5" style="width:100%; padding: 12px; border-radius: 24px;"></textarea>
             <button id="saveTributeBtn" class="admin-btn" style="margin-top: 10px;">حفظ النص</button>
         </div>
+        
         <div style="margin: 20px 0;">
             <h4>💬 إدارة الرسائل</h4>
             <div id="adminMessagesList"></div>
             <button id="clearAllMessagesBtn" class="admin-btn" style="background:#a03c2c; margin-top: 15px;">حذف كل الرسائل</button>
         </div>
+        
+        <!-- زر حفظ جميع التغييرات -->
+        <div style="margin: 20px 0;">
+            <button id="saveAllChangesBtn" class="admin-btn" style="background: #2c6e4e;"><i class="fas fa-save"></i> 💾 حفظ جميع التغييرات</button>
+        </div>
+        
         <button id="logoutAdminBtn" class="admin-btn" style="background:#5a6e7c;">تسجيل الخروج</button>
         <button id="closeAdminBtn" style="margin-top: 15px; background: none; border:1px solid var(--accent-gold); padding: 6px 20px; border-radius: 30px;">إغلاق</button>
     </div>
@@ -1172,6 +1188,34 @@
         localStorage.setItem('site_tribute', tributeText);
         document.getElementById('tributeText').innerText = tributeText;
     }
+    
+    // دالة حفظ كل شيء دفعة واحدة
+    function saveAllNow() {
+        saveImages();
+        saveMessagesAdmin();
+        saveTributeAdmin();
+        alert("✅ تم حفظ جميع التغييرات (الصور، النص التذكاري، الرسائل) بنجاح.");
+    }
+    
+    // إضافة روابط متعددة دفعة واحدة
+    function addMultipleImages(urlsArray) {
+        let addedCount = 0;
+        for (let url of urlsArray) {
+            url = url.trim();
+            if (url && !images.includes(url)) {
+                images.push(url);
+                addedCount++;
+            }
+        }
+        if (addedCount > 0) {
+            saveImages();
+            renderAdminImages();
+            buildGallery();
+            alert(`✅ تم إضافة ${addedCount} صورة جديدة بنجاح.`);
+        } else {
+            alert("⚠️ لم يتم إضافة أي روابط جديدة (الروابط مكررة أو غير صالحة).");
+        }
+    }
 
     function renderAdminImages() {
         const div = document.getElementById('adminImagesList');
@@ -1221,7 +1265,7 @@
     document.getElementById('closeAdminBtn').addEventListener('click', closeAdminPanel);
     document.getElementById('loginSubmit').addEventListener('click', () => {
         let pass = document.getElementById('adminPass').value;
-        if (pass === "Milano@123") {   // <--- غير كلمة المرور هنا
+        if (pass === "Milano@123") {   // يمكنك تغيير كلمة المرور هنا
             isAdmin = true;
             localStorage.setItem('site_admin_logged', 'true');
             adminStatusSpan.innerHTML = '🔓 وضع الإدارة نشط';
@@ -1249,6 +1293,26 @@
         let url = document.getElementById('newImageUrl').value.trim();
         if (url) { images.push(url); saveImages(); renderAdminImages(); buildGallery(); document.getElementById('newImageUrl').value = ''; }
         else alert("أدخل رابط صورة صحيح");
+    });
+    
+    // ربط الأزرار الجديدة
+    document.getElementById('addBulkBtn')?.addEventListener('click', () => {
+        const bulkText = document.getElementById('bulkUrls').value;
+        if (!bulkText.trim()) {
+            alert("الرجاء لصق الروابط أولاً (كل رابط في سطر).");
+            return;
+        }
+        const urls = bulkText.split(/\r?\n/).filter(line => line.trim().length > 0);
+        if (urls.length === 0) {
+            alert("لم يتم العثور على روابط صالحة.");
+            return;
+        }
+        addMultipleImages(urls);
+        document.getElementById('bulkUrls').value = ''; // مسح الحقل
+    });
+    
+    document.getElementById('saveAllChangesBtn')?.addEventListener('click', () => {
+        saveAllNow();
     });
 </script>
 </body>
