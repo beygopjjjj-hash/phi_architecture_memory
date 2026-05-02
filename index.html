@@ -98,6 +98,7 @@
     <span id="adminStatus">🔒 وضع المستخدم</span>
 </div>
 
+<!-- مودال تسجيل الدخول -->
 <div id="loginModal" class="modal">
     <div class="modal-box">
         <h3><i class="fas fa-crown"></i> تسجيل دخول المدير</h3>
@@ -107,6 +108,7 @@
     </div>
 </div>
 
+<!-- مودال لوحة الإدارة -->
 <div id="adminModal" class="modal">
     <div class="modal-box admin-panel">
         <h2><i class="fas fa-sliders-h"></i> لوحة الإدارة</h2>
@@ -144,10 +146,7 @@
 <div id="splashScreen" class="splash">
     <div class="splash-content">
         <img src="https://i.postimg.cc/fLxG4FV1/sh.jpg" alt="دكتور أشرف عبد الجواد">
-        <div class="splash-title">
-            د. أشرف عبد الجواد
-            <span>في ذمة الله</span>
-        </div>
+        <div class="splash-title">د. أشرف عبد الجواد <span>في ذمة الله</span></div>
     </div>
 </div>
 
@@ -156,19 +155,13 @@
         <h1>ستظل ذكراك في قلوبنا</h1>
         <div class="sub">رحمك الله يا دكتور أشرف</div>
         <div class="tribute" id="tributeBox">
-            <p id="tributeText">
-                وداعاً يا من كنت نوراً يضيء درب طلاب العمارة، كنت معلماً حكيماً وأباً روحياً للجميع. 
-                علمتنا أن العمارة ليست مجرد حجر ومادة، بل هي رسالة وحياة وروح. 
-                سيبقى أثرك خالداً في كل زاوية صممتها وفي كل عقل أنارته حكمتك. 
-                رحم الله الأستاذ الدكتور أشرف عبد الجواد، المدرس الجليل بقسم الهندسة المعمارية، 
-                الذي انتقل إلى رحاب الله صباح 26 ديسمبر 2025، إنا لله وإنا إليه راجعون.
-            </p>
+            <p id="tributeText">جارٍ التحميل...</p>
             <div class="small-line">اللهم اجعل قبره روضة من رياض الجنة</div>
         </div>
         <div class="info-pills">
             <span><i class="fas fa-drafting-compass"></i> روح معمارية</span>
             <span><i class="fas fa-landmark"></i> هوية خالدة</span>
-            <span><i class="fas fa-images"></i> 350+ ذكرى</span>
+            <span><i class="fas fa-images"></i> ذكريات لا تموت</span>
         </div>
         <div class="gold-divider"></div>
         <p style="margin-top: 35px; color: var(--text-secondary); font-weight: 500;">انقر على الصورة لاستعادة الذكرى بملء الشاشة</p>
@@ -192,7 +185,7 @@
             <button class="send-btn" id="sendMessageBtn"><i class="fas fa-paper-plane"></i> أرسل رسالة</button>
         </div>
         <div class="messages-list" id="messagesList">
-            <div class="empty-messages">لا توجد رسائل بعد، كن أول من يكتب رسالة تذكارية</div>
+            <div class="empty-messages">جارٍ تحميل الرسائل...</div>
         </div>
     </div>
 </main>
@@ -219,9 +212,17 @@
 </div>
 
 <script>
-    // --------------------- قائمة الصور الكاملة (جميع الصور التي أرسلها المستخدم) ---------------------
-    const allImages = [
-        // الصور الجديدة (2026-04-29 إلى 2026-05-02) - تم إضافتها أولاً حسب الأحدث
+    // ======================= إعدادات JSONBin =======================
+    const BIN_ID = "69f61c0836566621a818f4cf";
+    const MASTER_KEY = "$2a$10$4XN7UkvMTR0t/v7RzRQqheAtkYj6esn0X2DIQ6ZXYAT2aMvFp3YJa";
+    const API_URL = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
+    const HEADERS = {
+        "Content-Type": "application/json",
+        "X-Master-Key": MASTER_KEY
+    };
+    
+    // القائمة الكاملة للصور (جميع الصور التي أرسلها المستخدم)
+    const FULL_IMAGES_LIST = [
         "https://i.postimg.cc/Y0wJpmhS/Whats-App-Image-2026-04-29-at-14-59-32.jpg",
         "https://i.postimg.cc/brjKz2sP/Whats-App-Image-2026-04-29-at-14-59-32-(1).jpg",
         "https://i.postimg.cc/RhzjMnNZ/Whats-App-Image-2026-04-29-at-14-59-34.jpg",
@@ -308,7 +309,6 @@
         "https://i.postimg.cc/q7NHJ3xr/Whats-App-Image-2026-05-01-at-23-24-37.jpg",
         "https://i.postimg.cc/8C7gp6mN/Whats-App-Image-2026-05-01-at-23-25-09.jpg",
         "https://i.postimg.cc/251NkZ7k/Whats-App-Image-2026-05-01-at-23-28-53.jpg",
-        // صور 2026-05-02 الجديدة
         "https://i.postimg.cc/Qx2nsD78/Whats-App-Image-2026-05-02-at-14-15-45.jpg",
         "https://i.postimg.cc/L6c0RSPX/Whats-App-Image-2026-05-02-at-14-15-47.jpg",
         "https://i.postimg.cc/qMPZ0rKz/Whats-App-Image-2026-05-02-at-14-15-51.jpg",
@@ -444,18 +444,79 @@
         "https://i.postimg.cc/QdJ7B16h/Whats-App-Image-2026-04-26-at-00-09-11-(3).jpg",
         "https://i.postimg.cc/Jz5XyZTn/Whats-App-Image-2026-04-26-at-00-09-11-(4).jpg"
     ];
-
-    let images = [...allImages];
-    let messages = JSON.parse(localStorage.getItem('arch_messages')) || [];
-    let tributeText = document.getElementById('tributeText').innerText;
-
+    
+    // البيانات الافتراضية (نفس القائمة الكاملة)
+    const DEFAULT_IMAGES = FULL_IMAGES_LIST;
+    const DEFAULT_TRIBUTE = "وداعاً يا من كنت نوراً يضيء درب طلاب العمارة، كنت معلماً حكيماً وأباً روحياً للجميع. علمتنا أن العمارة ليست مجرد حجر ومادة، بل هي رسالة وحياة وروح. سيبقى أثرك خالداً في كل زاوية صممتها وفي كل عقل أنارته حكمتك. رحم الله الأستاذ الدكتور أشرف عبد الجواد، المدرس الجليل بقسم الهندسة المعمارية، الذي انتقل إلى رحاب الله صباح 26 ديسمبر 2025، إنا لله وإنا إليه راجعون.";
+    
+    // المتغيرات العامة
+    let images = [];
+    let messages = [];
+    let tributeText = "";
+    let isAdmin = false;
+    
+    // عناصر DOM
     const galleryContainer = document.getElementById('galleryContainer');
     const lightboxEl = document.getElementById('lightbox');
     const lbImage = document.getElementById('lbImage');
     const lbCounter = document.getElementById('lbCounter');
-    let currentIdx = 0;
-
-    function buildGallery() {
+    let currentLightboxIdx = 0;
+    
+    // ======================= دوال JSONBin =======================
+    async function loadFromCloud() {
+        try {
+            const response = await fetch(API_URL, { headers: HEADERS });
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            const data = await response.json();
+            const record = data.record;
+            // نستخدم القائمة الكاملة دائماً (لضمان وجود كل الصور)
+            // إذا كان السحابة تحتوي على صور مختلفة، نستبدلها بالقائمة الكاملة
+            images = DEFAULT_IMAGES;
+            messages = record.messages || [];
+            tributeText = record.tributeText || DEFAULT_TRIBUTE;
+            // نعيد حفظ القائمة الكاملة في السحابة لضمان التحديث
+            await saveToCloud(false);
+            document.getElementById('tributeText').innerText = tributeText;
+            renderGallery();
+            renderMessages();
+            console.log("✅ تم تحميل وحفظ القائمة الكاملة للصور في السحابة");
+        } catch (err) {
+            console.error("فشل التحميل من السحابة، استخدام البيانات المحلية", err);
+            images = DEFAULT_IMAGES;
+            messages = [];
+            tributeText = DEFAULT_TRIBUTE;
+            renderGallery();
+            renderMessages();
+        }
+    }
+    
+    async function saveToCloud(showAlert = false) {
+        const dataToSave = { images, messages, tributeText };
+        try {
+            const response = await fetch(API_URL, {
+                method: "PUT",
+                headers: HEADERS,
+                body: JSON.stringify(dataToSave)
+            });
+            if (response.ok) {
+                console.log("✅ تم الحفظ في السحابة");
+                if (showAlert) alert("✅ تم حفظ جميع التغييرات بنجاح");
+                return true;
+            } else {
+                console.error("خطأ في الحفظ", response.status);
+                if (showAlert) alert("❌ فشل الحفظ، حاول مرة أخرى");
+                return false;
+            }
+        } catch (err) {
+            console.error("فشل الاتصال بالسحابة", err);
+            if (showAlert) alert("❌ مشكلة في الاتصال، تحقق من اتصالك بالإنترنت");
+            return false;
+        }
+    }
+    
+    // ======================= دوال عرض المعرض والرسائل =======================
+    function renderGallery() {
+        if (!galleryContainer) return;
         let html = '';
         images.forEach((src, i) => {
             html += `<div class="gallery-item" style="--i: ${i}"><img src="${src}" loading="lazy" alt="Memory"><div class="glass-overlay"></div></div>`;
@@ -465,34 +526,21 @@
             el.addEventListener('click', () => openLightbox(idx));
         });
     }
-
+    
     function openLightbox(idx) {
-        currentIdx = idx;
+        currentLightboxIdx = idx;
         updateLightbox();
         lightboxEl.classList.add('active');
         document.body.style.overflow = 'hidden';
     }
-
     function updateLightbox() {
-        lbImage.src = images[currentIdx];
-        lbCounter.innerText = `${currentIdx+1} / ${images.length}`;
+        lbImage.src = images[currentLightboxIdx];
+        lbCounter.innerText = `${currentLightboxIdx+1} / ${images.length}`;
     }
-
-    function nextImage() {
-        currentIdx = (currentIdx + 1) % images.length;
-        updateLightbox();
-    }
-
-    function prevImage() {
-        currentIdx = (currentIdx - 1 + images.length) % images.length;
-        updateLightbox();
-    }
-
-    function closeLightbox() {
-        lightboxEl.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-
+    function nextImage() { currentLightboxIdx = (currentLightboxIdx + 1) % images.length; updateLightbox(); }
+    function prevImage() { currentLightboxIdx = (currentLightboxIdx - 1 + images.length) % images.length; updateLightbox(); }
+    function closeLightbox() { lightboxEl.classList.remove('active'); document.body.style.overflow = ''; }
+    
     document.getElementById('lbPrev').addEventListener('click', prevImage);
     document.getElementById('lbNext').addEventListener('click', nextImage);
     document.getElementById('lbClose').addEventListener('click', closeLightbox);
@@ -503,18 +551,17 @@
         else if(e.key === 'ArrowLeft') nextImage();
         else if(e.key === 'Escape') closeLightbox();
     });
-
-    const splash = document.getElementById('splashScreen');
-    const hideSplash = () => {
-        splash.classList.add('hide');
-        setTimeout(() => { splash.style.display = 'none'; }, 1000);
-    };
-    setTimeout(hideSplash, 4000);
-    splash.addEventListener('click', hideSplash);
-
-    buildGallery();
-
-    // --------------------- نظام الرسائل العام ---------------------
+    
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+    
     function renderMessages() {
         const container = document.getElementById('messagesList');
         if (!messages.length) {
@@ -533,91 +580,8 @@
             </div>
         `).join('');
     }
-
-    function escapeHtml(str) {
-        if (!str) return '';
-        return str.replace(/[&<>]/g, function(m) {
-            if (m === '&') return '&amp;';
-            if (m === '<') return '&lt;';
-            if (m === '>') return '&gt;';
-            return m;
-        });
-    }
-
-    function addMessage(name, text) {
-        if (!text.trim()) {
-            alert("الرجاء كتابة رسالة");
-            return false;
-        }
-        const now = new Date();
-        const formattedDate = `${now.toLocaleDateString('ar-EG')} - ${now.toLocaleTimeString('ar-EG', {hour:'2-digit', minute:'2-digit'})}`;
-        messages.push({
-            name: name.trim() || "صديق",
-            text: text.trim(),
-            date: formattedDate,
-            timestamp: Date.now()
-        });
-        localStorage.setItem('arch_messages', JSON.stringify(messages));
-        renderMessages();
-        if (typeof renderAdminMessages === 'function') renderAdminMessages();
-        return true;
-    }
-
-    document.getElementById('sendMessageBtn').addEventListener('click', () => {
-        const nameInput = document.getElementById('senderName');
-        const msgInput = document.getElementById('messageContent');
-        if (addMessage(nameInput.value, msgInput.value)) {
-            msgInput.value = '';
-            nameInput.value = '';
-        }
-    });
-
-    renderMessages();
-
-    // --------------------- نظام الداش بورد والإدارة ---------------------
-    let isAdmin = false;
-
-    function saveImages() {
-        localStorage.setItem('site_images', JSON.stringify(images));
-        buildGallery();
-        if(isAdmin) renderAdminImages();
-    }
-    function saveMessagesAdmin() {
-        localStorage.setItem('arch_messages', JSON.stringify(messages));
-        renderMessages();
-        if(isAdmin) renderAdminMessages();
-    }
-    function saveTributeAdmin() {
-        localStorage.setItem('site_tribute', tributeText);
-        document.getElementById('tributeText').innerText = tributeText;
-    }
     
-    function saveAllNow() {
-        saveImages();
-        saveMessagesAdmin();
-        saveTributeAdmin();
-        alert("✅ تم حفظ جميع التغييرات (الصور، النص التذكاري، الرسائل) بنجاح.");
-    }
-    
-    function addMultipleImages(urlsArray) {
-        let addedCount = 0;
-        for (let url of urlsArray) {
-            url = url.trim();
-            if (url && !images.includes(url)) {
-                images.push(url);
-                addedCount++;
-            }
-        }
-        if (addedCount > 0) {
-            saveImages();
-            renderAdminImages();
-            buildGallery();
-            alert(`✅ تم إضافة ${addedCount} صورة جديدة بنجاح.`);
-        } else {
-            alert("⚠️ لم يتم إضافة أي روابط جديدة (الروابط مكررة أو غير صالحة).");
-        }
-    }
-
+    // ======================= دوال الإدارة =======================
     function renderAdminImages() {
         const div = document.getElementById('adminImagesList');
         if (!div) return;
@@ -628,13 +592,18 @@
             </div>
         `).join('');
         document.querySelectorAll('[data-img-index]').forEach(btn => {
-            btn.addEventListener('click', e => {
+            btn.addEventListener('click', async e => {
                 let i = parseInt(btn.getAttribute('data-img-index'));
-                if (!isNaN(i)) { images.splice(i, 1); saveImages(); renderAdminImages(); buildGallery(); }
+                if (!isNaN(i)) {
+                    images.splice(i, 1);
+                    await saveToCloud(false);
+                    renderAdminImages();
+                    renderGallery();
+                }
             });
         });
     }
-
+    
     function renderAdminMessages() {
         const div = document.getElementById('adminMessagesList');
         if (!div) return;
@@ -646,21 +615,55 @@
             </div>
         `).join('');
         document.querySelectorAll('[data-msg-index]').forEach(btn => {
-            btn.addEventListener('click', e => {
+            btn.addEventListener('click', async e => {
                 let i = parseInt(btn.getAttribute('data-msg-index'));
-                if (!isNaN(i)) { messages.splice(i, 1); saveMessagesAdmin(); renderAdminMessages(); renderMessages(); }
+                if (!isNaN(i)) {
+                    messages.splice(i, 1);
+                    await saveToCloud(false);
+                    renderAdminMessages();
+                    renderMessages();
+                }
             });
         });
     }
-
+    
+    // ======================= أحداث الصفحة =======================
+    document.getElementById('sendMessageBtn').addEventListener('click', async () => {
+        const name = document.getElementById('senderName').value;
+        const text = document.getElementById('messageContent').value;
+        if (!text.trim()) {
+            alert("الرجاء كتابة رسالة");
+            return;
+        }
+        const now = new Date();
+        const formattedDate = `${now.toLocaleDateString('ar-EG')} - ${now.toLocaleTimeString('ar-EG', {hour:'2-digit', minute:'2-digit'})}`;
+        messages.push({
+            name: name.trim() || "صديق",
+            text: text.trim(),
+            date: formattedDate,
+            timestamp: Date.now()
+        });
+        const saved = await saveToCloud(false);
+        if (saved) {
+            renderMessages();
+            document.getElementById('messageContent').value = '';
+            document.getElementById('senderName').value = '';
+            alert("✅ تم إرسال رسالتك للجميع");
+        } else {
+            alert("❌ حدث خطأ، حاول مرة أخرى");
+        }
+    });
+    
+    // أنظمة تسجيل الدخول والإدارة
     const loginModal = document.getElementById('loginModal');
     const adminModal = document.getElementById('adminModal');
     const adminStatusSpan = document.getElementById('adminStatus');
+    
     function openLogin() { loginModal.classList.add('active'); }
     function closeLogin() { loginModal.classList.remove('active'); }
     function openAdminPanel() { adminModal.classList.add('active'); renderAdminImages(); renderAdminMessages(); document.getElementById('editTributeText').value = tributeText; }
     function closeAdminPanel() { adminModal.classList.remove('active'); }
-
+    
     document.getElementById('openAdminBtn').addEventListener('click', openLogin);
     document.getElementById('closeLogin').addEventListener('click', closeLogin);
     document.getElementById('closeAdminBtn').addEventListener('click', closeAdminPanel);
@@ -682,38 +685,70 @@
         closeAdminPanel();
     });
     if (localStorage.getItem('site_admin_logged') === 'true') { isAdmin = true; adminStatusSpan.innerHTML = '🔓 وضع الإدارة نشط'; }
-
-    document.getElementById('saveTributeBtn')?.addEventListener('click', () => {
-        let newText = document.getElementById('editTributeText').value;
-        if (newText) { tributeText = newText; saveTributeAdmin(); }
-    });
-    document.getElementById('clearAllMessagesBtn')?.addEventListener('click', () => {
-        if (confirm("هل أنت متأكد من حذف جميع الرسائل؟")) { messages = []; saveMessagesAdmin(); renderAdminMessages(); renderMessages(); }
-    });
-    document.getElementById('addImageBtn')?.addEventListener('click', () => {
+    
+    // إضافة صورة فردية
+    document.getElementById('addImageBtn')?.addEventListener('click', async () => {
         let url = document.getElementById('newImageUrl').value.trim();
-        if (url) { images.push(url); saveImages(); renderAdminImages(); buildGallery(); document.getElementById('newImageUrl').value = ''; }
-        else alert("أدخل رابط صورة صحيح");
+        if (url) {
+            images.push(url);
+            await saveToCloud(false);
+            renderAdminImages();
+            renderGallery();
+            document.getElementById('newImageUrl').value = '';
+            alert("✅ تم إضافة الصورة وحفظها للجميع");
+        } else alert("أدخل رابط صورة");
     });
     
-    document.getElementById('addBulkBtn')?.addEventListener('click', () => {
-        const bulkText = document.getElementById('bulkUrls').value;
-        if (!bulkText.trim()) {
-            alert("الرجاء لصق الروابط أولاً (كل رابط في سطر).");
-            return;
-        }
-        const urls = bulkText.split(/\r?\n/).filter(line => line.trim().length > 0);
-        if (urls.length === 0) {
-            alert("لم يتم العثور على روابط صالحة.");
-            return;
-        }
-        addMultipleImages(urls);
-        document.getElementById('bulkUrls').value = '';
+    // إضافة روابط متعددة
+    document.getElementById('addBulkBtn')?.addEventListener('click', async () => {
+        let bulk = document.getElementById('bulkUrls').value;
+        if (!bulk.trim()) { alert("الرجاء لصق الروابط"); return; }
+        let urls = bulk.split(/\r?\n/).filter(line => line.trim().length > 0);
+        let added = 0;
+        urls.forEach(u => { if(u.trim() && !images.includes(u.trim())) { images.push(u.trim()); added++; } });
+        if (added > 0) {
+            await saveToCloud(false);
+            renderAdminImages();
+            renderGallery();
+            document.getElementById('bulkUrls').value = '';
+            alert(`✅ تم إضافة ${added} صورة وحفظها للجميع`);
+        } else alert("لم يتم إضافة صور جديدة (قد تكون مكررة)");
     });
     
-    document.getElementById('saveAllChangesBtn')?.addEventListener('click', () => {
-        saveAllNow();
+    // تعديل النص التذكاري
+    document.getElementById('saveTributeBtn')?.addEventListener('click', async () => {
+        let newText = document.getElementById('editTributeText').value;
+        if (newText) {
+            tributeText = newText;
+            await saveToCloud(false);
+            document.getElementById('tributeText').innerText = tributeText;
+            alert("✅ تم حفظ النص الجديد للجميع");
+        }
     });
+    
+    // حذف كل الرسائل
+    document.getElementById('clearAllMessagesBtn')?.addEventListener('click', async () => {
+        if (confirm("هل أنت متأكد من حذف جميع الرسائل؟")) {
+            messages = [];
+            await saveToCloud(false);
+            renderAdminMessages();
+            renderMessages();
+            alert("✅ تم حذف جميع الرسائل");
+        }
+    });
+    
+    // زر حفظ جميع التغييرات
+    document.getElementById('saveAllChangesBtn')?.addEventListener('click', async () => {
+        await saveToCloud(true);
+    });
+    
+    // إخفاء شاشة الترحيب
+    const splash = document.getElementById('splashScreen');
+    setTimeout(() => { splash.classList.add('hide'); setTimeout(() => splash.style.display = 'none', 800); }, 4000);
+    splash.addEventListener('click', () => { splash.classList.add('hide'); setTimeout(() => splash.style.display = 'none', 800); });
+    
+    // بدء تحميل البيانات من السحابة
+    loadFromCloud();
 </script>
 </body>
 </html>
