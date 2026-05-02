@@ -2,8 +2,8 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
-    <title>معرض ذكريات الدفعة | PHI - قسم العمارة</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>د. أشرف عبد الجواد | ذاكرة العمارة - PHI Class of 2026</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -15,469 +15,571 @@
 
         body {
             font-family: 'Cairo', sans-serif;
-            background: #fefcf8;
-            color: #1e3e4a;
-            line-height: 1.5;
-            scroll-behavior: smooth;
+            transition: background-color 0.3s ease, color 0.2s ease;
             overflow-x: hidden;
+            scroll-behavior: smooth;
         }
 
-        body::before {
-            content: "";
+        /* متغيرات عالية التباين للوضع الداكن */
+        :root {
+            --bg-primary: #0a0f1a;
+            --bg-secondary: #0f1a24;
+            --text-primary: #f0f4fa;
+            --text-secondary: #cfdfea;
+            --text-dark: #eef4ff;
+            --accent-gold: #e2bd6e;
+            --accent-gold-dark: #c9a345;
+            --card-bg: rgba(20, 30, 45, 0.75);
+            --card-border: rgba(226, 189, 110, 0.3);
+            --shadow-color: rgba(0,0,0,0.6);
+            --footer-bg: #0b111c;
+            --tribute-bg: rgba(226, 189, 110, 0.12);
+        }
+
+        /* الوضع الفاتح - تباين عالٍ */
+        @media (prefers-color-scheme: light) {
+            :root {
+                --bg-primary: #ffffff;
+                --bg-secondary: #f8f5f0;
+                --text-primary: #1a2c38;
+                --text-secondary: #2c4a5e;
+                --text-dark: #111;
+                --accent-gold: #b87c2e;
+                --accent-gold-dark: #9b641f;
+                --card-bg: rgba(255, 255, 250, 0.95);
+                --card-border: rgba(184, 124, 46, 0.25);
+                --shadow-color: rgba(0,0,0,0.08);
+                --footer-bg: #f0ebe2;
+                --tribute-bg: rgba(184, 124, 46, 0.08);
+            }
+            body {
+                background-color: var(--bg-primary);
+                color: var(--text-primary);
+            }
+            .bg-aura {
+                background: radial-gradient(circle at 20% 30%, rgba(220, 195, 140, 0.15), #fff6ed);
+            }
+            .bg-aura::after {
+                background: repeating-linear-gradient(45deg, rgba(184,124,46,0.04) 0px, rgba(184,124,46,0.04) 1px, transparent 1px, transparent 12px);
+            }
+            .splash {
+                background: #fffaf5;
+            }
+            .info-pills span, .faculty-gold {
+                background: #fef7e8;
+                color: #5a3e1f;
+                border-color: rgba(184,124,46,0.4);
+            }
+            .gallery-item {
+                background: #ffffff;
+                backdrop-filter: none;
+                box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            }
+            footer {
+                background: #fefaf2;
+                border-top-color: #e2d5c0;
+            }
+            .quote, .hero .tribute p {
+                color: #2b4b60;
+            }
+            .lb-btn, .lb-close {
+                background: #ffffffcc;
+                color: #7a5a2e;
+                backdrop-filter: blur(4px);
+            }
+            .hero h1 {
+                color: #1a2c38;
+            }
+            .hero .sub {
+                color: #b87c2e;
+            }
+            .splash-title {
+                color: #1a2c38;
+            }
+            .splash-title span {
+                color: #b87c2e;
+            }
+        }
+
+        .bg-aura {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at 10% 20%, rgba(180, 224, 255, 0.15) 0%, rgba(255, 245, 225, 0.1) 90%);
-            pointer-events: none;
             z-index: -2;
+            transition: background 0.3s;
         }
-
-        body::after {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                linear-gradient(rgba(200, 225, 245, 0.2) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(200, 225, 245, 0.2) 1px, transparent 1px);
-            background-size: 45px 45px;
+        .bg-aura::after {
+            content: '';
+            position: absolute;
+            width: 150%;
+            height: 150%;
+            top: -25%;
+            left: -25%;
             pointer-events: none;
-            z-index: -1;
+            animation: slowDrift 40s linear infinite;
         }
 
-        /* شاشة الترحيب */
-        .splash-screen {
+        @keyframes slowDrift {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(60px, 60px); }
+        }
+
+        /* Splash Screen */
+        .splash {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #fefbf5, #eef4fc);
-            z-index: 10000;
+            z-index: 20000;
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            transition: opacity 0.8s cubic-bezier(0.2, 0.9, 0.4, 1.1), visibility 0.8s ease;
-            backdrop-filter: blur(2px);
-            padding: 20px;
-            box-sizing: border-box;
+            transition: opacity 0.8s cubic-bezier(0.2, 0.9, 0.4, 1.1), visibility 0.8s;
         }
-
+        .splash.hide {
+            opacity: 0;
+            visibility: hidden;
+        }
         .splash-content {
             text-align: center;
-            animation: fadeInUp 0.9s ease;
-            max-width: 90%;
-            width: auto;
-            padding: 15px;
+            animation: goldGlow 1s ease;
+            max-width: 85%;
         }
-
+        @keyframes goldGlow {
+            0% { opacity: 0; transform: scale(0.92); filter: blur(8px); }
+            100% { opacity: 1; transform: scale(1); filter: blur(0); }
+        }
         .splash-content img {
             max-width: 100%;
-            max-height: 60vh;
-            width: auto;
-            height: auto;
-            border-radius: 28px;
-            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.2);
-            border: 3px solid white;
-            margin-bottom: 20px;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
+            max-height: 65vh;
+            border-radius: 48px;
+            box-shadow: 0 25px 45px var(--shadow-color);
+            border: 1px solid var(--accent-gold);
         }
-
-        .welcome-message {
-            font-size: 1.8rem;
-            font-weight: 800;
-            background: linear-gradient(125deg, #1e5975, #e09d6b);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-            margin-bottom: 12px;
-        }
-
-        .sub-message {
-            font-size: 1rem;
-            color: #4f7d8f;
-            font-weight: 500;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(25px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .hero {
-            text-align: center;
-            padding: 50px 15px 40px;
-            margin-bottom: 20px;
-        }
-
-        .hero h1 {
+        .splash-title {
             font-size: 2rem;
-            font-weight: 800;
-            background: linear-gradient(125deg, #1e5975, #4b8da2, #e09d6b);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-        }
-
-        .hero .sub {
-            font-size: 1rem;
-            font-weight: 600;
-            color: #2c6a7e;
-            border-bottom: 2px solid #e09d6b;
-            display: inline-block;
-            padding-bottom: 6px;
-            margin-top: 10px;
-        }
-
-        .arch-badge {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-top: 20px;
-            flex-wrap: wrap;
-        }
-
-        .arch-badge span {
-            background: rgba(255, 250, 240, 0.85);
-            backdrop-filter: blur(4px);
-            padding: 6px 16px;
-            border-radius: 40px;
-            font-weight: 600;
-            color: #2a5f74;
-            font-size: 0.75rem;
-            border: 1px solid rgba(224, 157, 107, 0.3);
-        }
-
-        .arch-divider {
-            width: 70px;
-            height: 3px;
-            background: #e09d6b;
-            margin: 25px auto 0;
-            border-radius: 4px;
-        }
-
-        .section-title {
-            text-align: center;
-            margin: 30px 0 30px;
-        }
-        .section-title h2 {
-            font-size: 1.8rem;
             font-weight: 700;
-            color: #1c5a70;
+            color: var(--text-primary);
+            margin-top: 25px;
         }
-        .section-title span {
-            font-size: 0.85rem;
-            color: #7e9aa8;
+        .splash-title span {
             display: block;
+            font-size: 1.2rem;
+            font-weight: normal;
+            color: var(--accent-gold);
             margin-top: 8px;
         }
-        .section-title:after {
+
+        /* Header */
+        .hero {
+            text-align: center;
+            padding: 100px 20px 70px;
+            position: relative;
+            z-index: 2;
+        }
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.5px;
+            line-height: 1.3;
+        }
+        .hero .sub {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--accent-gold);
+            margin-top: 15px;
+        }
+        .hero .tribute {
+            max-width: 750px;
+            margin: 25px auto 0;
+            padding: 24px 28px;
+            background: var(--tribute-bg);
+            border-radius: 32px;
+            backdrop-filter: blur(4px);
+            border-right: 4px solid var(--accent-gold);
+            text-align: right;
+        }
+        .hero .tribute p {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        .hero .tribute .small-line {
+            font-size: 0.9rem;
+            color: var(--accent-gold);
+            margin-top: 12px;
+            font-weight: 600;
+        }
+
+        .info-pills {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+        .info-pills span {
+            backdrop-filter: blur(12px);
+            padding: 8px 28px;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            border: 1px solid var(--card-border);
+            transition: 0.2s;
+        }
+        .gold-divider {
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-gold), var(--accent-gold-dark));
+            margin: 40px auto 0;
+            border-radius: 3px;
+        }
+
+        /* Gallery Header */
+        .gallery-header {
+            text-align: center;
+            margin: 30px 0 50px;
+        }
+        .gallery-header h2 {
+            font-size: 2.3rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .gallery-header p {
+            color: var(--text-secondary);
+            margin-top: 12px;
+            font-weight: 500;
+        }
+        .gallery-header:after {
             content: '';
             display: block;
-            width: 60px;
+            width: 70px;
             height: 2px;
-            background: #b4e0ff;
-            margin: 12px auto 0;
-            border-radius: 2px;
+            background: var(--accent-gold);
+            margin: 18px auto 0;
         }
 
-        .gallery-grid {
+        /* Gallery Grid */
+        .gallery {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px 80px;
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-            gap: 20px;
-            margin-bottom: 60px;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 28px;
         }
-
-        .gallery-card {
-            background: white;
-            border-radius: 24px;
+        .gallery-item {
+            position: relative;
+            border-radius: 32px;
             overflow: hidden;
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease;
             cursor: pointer;
-            border: 1px solid #eef4fa;
+            transition: all 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            background: var(--card-bg);
+            backdrop-filter: blur(4px);
+            border: 1px solid var(--card-border);
+            transform: translateY(0);
+            opacity: 0;
+            animation: cardRise 0.7s forwards;
+            animation-delay: calc(var(--i) * 0.02s);
         }
-
-        .gallery-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.1);
+        @keyframes cardRise {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-
-        .gallery-card img {
+        .gallery-item:hover {
+            transform: translateY(-12px);
+            border-color: var(--accent-gold);
+            box-shadow: 0 30px 50px -15px var(--shadow-color);
+        }
+        .gallery-item img {
             width: 100%;
-            height: 260px;
+            height: 300px;
             object-fit: cover;
             display: block;
-            transition: transform 0.4s ease;
+            transition: transform 0.7s ease, filter 0.4s;
         }
-
-        .gallery-card:hover img {
-            transform: scale(1.02);
+        .gallery-item:hover img {
+            transform: scale(1.04);
+            filter: brightness(1.02);
+        }
+        .glass-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 30%;
+            background: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
+            opacity: 0;
+            transition: 0.3s;
+        }
+        .gallery-item:hover .glass-overlay {
+            opacity: 1;
         }
 
         /* Lightbox */
-        .fullscreen-lightbox {
+        .lightbox {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(8, 15, 20, 0.97);
-            backdrop-filter: blur(20px);
-            z-index: 5000;
+            background: rgba(5, 8, 15, 0.98);
+            backdrop-filter: blur(25px);
+            z-index: 30000;
             display: flex;
             justify-content: center;
             align-items: center;
             visibility: hidden;
             opacity: 0;
-            transition: visibility 0.2s, opacity 0.35s ease;
+            transition: visibility 0.2s, opacity 0.4s ease;
         }
-
-        .fullscreen-lightbox.active {
+        .lightbox.active {
             visibility: visible;
             opacity: 1;
         }
-
-        .fs-wrapper {
+        .lb-inner {
             position: relative;
-            width: 100%;
-            height: 100%;
+            width: 90%;
+            height: 90%;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 15px;
         }
-
-        .fs-image {
-            max-width: 95%;
-            max-height: 85%;
-            width: auto;
-            height: auto;
+        .lb-img {
+            max-width: 90vw;
+            max-height: 85vh;
             object-fit: contain;
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
-            transition: opacity 0.25s ease;
-            background: #0a1217;
+            border-radius: 28px;
+            box-shadow: 0 25px 45px rgba(0,0,0,0.6);
+            transition: opacity 0.2s, transform 0.3s;
+            transform: scale(0.96);
+            border: 1px solid var(--accent-gold);
         }
-
-        .fs-nav {
+        .lightbox.active .lb-img {
+            transform: scale(1);
+        }
+        .lb-btn {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(255, 242, 225, 0.9);
             backdrop-filter: blur(12px);
-            border: none;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #2c5f72;
-            transition: 0.2s;
+            width: 56px;
+            height: 56px;
+            border-radius: 60px;
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 5100;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.2);
+            font-size: 2rem;
+            cursor: pointer;
+            transition: 0.2s;
+            border: 1px solid var(--accent-gold);
+            background: var(--card-bg);
+            color: var(--accent-gold);
         }
-
-        .fs-nav:hover {
-            background: #e09d6b;
-            color: white;
+        .lb-btn:hover {
+            background: var(--accent-gold);
+            color: #0a0f1a;
+            transform: translateY(-50%) scale(1.08);
         }
-
-        .fs-prev { left: 10px; }
-        .fs-next { right: 10px; }
-
-        .fs-close {
+        .lb-prev { left: 25px; }
+        .lb-next { right: 25px; }
+        .lb-close {
             position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(0,0,0,0.6);
+            top: 30px;
+            right: 40px;
             backdrop-filter: blur(8px);
-            width: 44px;
-            height: 44px;
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            font-size: 1.6rem;
-            color: white;
+            font-size: 1.8rem;
             transition: 0.2s;
-            z-index: 5100;
-            border: none;
+            border: 1px solid var(--accent-gold);
+            background: var(--card-bg);
+            color: var(--accent-gold);
         }
-
-        .fs-close:hover {
-            background: #e09d6b;
+        .lb-close:hover {
+            background: var(--accent-gold);
+            color: #0a0f1a;
         }
-
-        .fs-counter {
+        .lb-counter {
             position: absolute;
-            bottom: 20px;
+            bottom: 30px;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(0,0,0,0.6);
+            background: rgba(0,0,0,0.7);
             backdrop-filter: blur(8px);
-            padding: 6px 16px;
-            border-radius: 40px;
-            color: white;
-            font-weight: 500;
-            font-size: 0.8rem;
-            z-index: 5100;
-            white-space: nowrap;
-        }
-
-        @media (min-width: 768px) {
-            .fs-nav { width: 56px; height: 56px; font-size: 2rem; }
-            .fs-prev { left: 25px; }
-            .fs-next { right: 25px; }
-            .fs-close { top: 28px; right: 35px; width: 50px; height: 50px; font-size: 1.8rem; }
-            .fs-counter { bottom: 30px; padding: 8px 20px; font-size: 0.9rem; }
-            .hero h1 { font-size: 2.8rem; }
-            .hero .sub { font-size: 1.2rem; }
-            .welcome-message { font-size: 2.2rem; }
-        }
-
-        @media (max-width: 480px) {
-            .gallery-grid {
-                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-                gap: 16px;
-            }
-            .gallery-card img {
-                height: 220px;
-            }
-            .hero h1 {
-                font-size: 1.7rem;
-            }
-        }
-
-        footer {
-            background: linear-gradient(110deg, #eef4fc, #fff6ec);
-            padding: 40px 20px 40px;
-            text-align: center;
-            border-radius: 40px 40px 0 0;
-            margin-top: 30px;
-            border-top: 2px solid #ffe0bc;
-        }
-
-        .footer-content p {
-            color: #2b5b6e;
-            margin: 12px 0;
-            font-weight: 500;
-            line-height: 1.6;
-            font-size: 0.95rem;
-        }
-
-        .thankyou-text {
-            font-size: 1rem;
-            max-width: 90%;
-            margin: 0 auto 20px;
-        }
-
-        .faculty-thanks {
-            background: #fff3e6;
-            display: inline-block;
-            padding: 10px 20px;
-            border-radius: 50px;
-            color: #b45a2e;
+            padding: 8px 24px;
+            border-radius: 60px;
+            color: #f5e6c4;
             font-weight: 600;
-            margin-top: 12px;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
         }
 
-        .loading-placeholder {
+        @media (max-width: 750px) {
+            .hero h1 { font-size: 2rem; }
+            .gallery { gap: 18px; grid-template-columns: repeat(auto-fill, minmax(260px,1fr)); }
+            .gallery-item img { height: 240px; }
+            .lb-btn { width: 44px; height: 44px; font-size: 1.4rem; }
+            .lb-close { top: 15px; right: 20px; width: 42px; height: 42px; }
+            .hero .tribute p { font-size: 0.85rem; }
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px 20px 50px;
             text-align: center;
-            padding: 40px;
+            border-top: 1px solid var(--card-border);
+            background: var(--footer-bg);
+            transition: background 0.3s;
+        }
+        .quote {
+            max-width: 750px;
+            margin: 0 auto;
             font-size: 1rem;
-            color: #7ca0ae;
+            line-height: 1.9;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        .faculty-gold {
+            display: inline-block;
+            padding: 10px 32px;
+            border-radius: 60px;
+            margin-top: 25px;
+            font-weight: 600;
+            border: 1px solid var(--accent-gold);
+            background: var(--card-bg);
+            color: var(--accent-gold);
+        }
+        small {
+            display: block;
+            margin-top: 35px;
+            opacity: 0.7;
+            font-size: 0.7rem;
+            color: var(--text-secondary);
         }
     </style>
 </head>
 <body>
+<div class="bg-aura"></div>
 
-<!-- شاشة الترحيب -->
-<div id="splashScreen" class="splash-screen">
+<!-- Splash Screen -->
+<div id="splashScreen" class="splash">
     <div class="splash-content">
-        <img src="https://i.postimg.cc/nc5YKPkQ/image.png" alt="Welcome Class of 2026" loading="eager">
-        <div class="welcome-message">🎓 Welcome, Class of 2026! 🎓</div>
-        <div class="sub-message">Memories that will last forever — PHI Architecture Department</div>
-    </div>
-</div>
-
-<div class="hero">
-    <div class="container">
-        <h1>🧱 ذاكرة العمارة الخالدة 🧱</h1>
-        <div class="sub">دفعة معهد الأهرامات العالي للهندسة والتكنولوجيا | PHI - قسم العمارة</div>
-        <div class="arch-badge">
-            <span><i class="fas fa-drafting-compass"></i> Architectural Soul</span>
-            <span><i class="fas fa-landmark"></i> Egyptian Identity</span>
-            <span><i class="fas fa-images"></i> ذكريات متجددة</span>
+        <img src="https://i.postimg.cc/fLxG4FV1/sh.jpg" alt="دكتور أشرف عبد الجواد">
+        <div class="splash-title">
+            د. أشرف عبد الجواد
+            <span>في ذمة الله</span>
         </div>
-        <div class="arch-divider"></div>
-        <p style="margin-top: 20px; max-width: 85%; margin-inline: auto; color: #4f7d8f; font-size: 0.9rem;">انقر على أي صورة لتغمر شاشتك بالذاكرة</p>
     </div>
 </div>
 
-<div class="container">
-    <div class="section-title">
-        <h2><i class="fas fa-camera-retro" style="margin-left: 8px; color: #e09d6b;"></i> معرض الذكريات</h2>
-        <span>تنقل سلس — صور تملأ الشاشة — مرتبة من الأحدث للأقدم</span>
-    </div>
-    <div id="galleryGrid" class="gallery-grid">
-        <div class="loading-placeholder"><i class="fas fa-spinner fa-pulse"></i> جاري تحميل الذكريات...</div>
-    </div>
-</div>
+<main>
+    <div class="hero">
+        <h1>ستظل ذكراك في قلوبنا</h1>
+        <div class="sub">رحمك الله يا دكتور أشرف</div>
+        
+        <div class="tribute">
+            <p>
+                وداعاً يا من كنت نوراً يضيء درب طلاب العمارة، كنت معلماً حكيماً وأباً روحياً للجميع. 
+                علمتنا أن العمارة ليست مجرد حجر ومادة، بل هي رسالة وحياة وروح. 
+                سيبقى أثرك خالداً في كل زاوية صممتها وفي كل عقل أنارته حكمتك. 
+                رحم الله الأستاذ الدكتور أشرف عبد الجواد، المدرس الجليل بقسم الهندسة المعمارية، 
+                الذي انتقل إلى رحاب الله صباح 26 ديسمبر 2025، إنا لله وإنا إليه راجعون.
+            </p>
+            <div class="small-line">اللهم اجعل قبره روضة من رياض الجنة</div>
+        </div>
 
-<!-- Lightbox -->
-<div id="fullscreenLightbox" class="fullscreen-lightbox">
-    <div class="fs-wrapper">
-        <button class="fs-close" id="fsCloseBtn"><i class="fas fa-times"></i></button>
-        <div class="fs-counter" id="fsCounter">1 / 0</div>
-        <img id="fsImage" class="fs-image" src="" alt="ذكرى">
-        <button class="fs-nav fs-prev" id="fsPrevBtn"><i class="fas fa-chevron-right"></i></button>
-        <button class="fs-nav fs-next" id="fsNextBtn"><i class="fas fa-chevron-left"></i></button>
+        <div class="info-pills">
+            <span><i class="fas fa-drafting-compass"></i> روح معمارية</span>
+            <span><i class="fas fa-landmark"></i> هوية خالدة</span>
+            <span><i class="fas fa-images"></i> 240+ ذكرى</span>
+        </div>
+        <div class="gold-divider"></div>
+        <p style="margin-top: 35px; color: var(--text-secondary); font-weight: 500;">انقر على الصورة لاستعادة الذكرى بملء الشاشة</p>
     </div>
-</div>
+
+    <div class="gallery-header">
+        <h2><i class="fas fa-camera-retro"></i> رحلة الذكريات</h2>
+        <p>لحظات جمعتنا معاً، نستعيدها بحب</p>
+    </div>
+
+    <div class="gallery" id="galleryContainer"></div>
+</main>
 
 <footer>
-    <div class="container footer-content">
-        <div class="thankyou-text">
-            <p><i class="fas fa-heart" style="color: #e09d6b;"></i>  إلى كل روح سكنت هذه القاعات، وإلى كل ضحكة جمعتنا، وإلى الأيام التي علمتنا معنى العمارة ليس مجرد حجر بل حب وإخاء  <i class="fas fa-heart" style="color: #e09d6b;"></i></p>
-            <p>شكراً لكل لحظة عشناها سوياً، لكل حلم رسمنا خطوطه الأولى، وللذكرى التي ستظل تنبض بيننا.</p>
-        </div>
-        <div class="faculty-thanks">
-            <i class="fas fa-chalkboard-user"></i> كل التقدير والاحترام لأساتذتنا الأفاضل والمعيدين المخلصين في قسم العمارة — أنتم نور دربنا
-        </div>
-        <p style="margin-top: 25px; font-size: 0.7rem;">دفعة 2026 - معهد الأهرامات العالي للهندسة والتكنولوجيا | PHI</p>
+    <div class="quote">
+        <i class="fas fa-heart" style="color: var(--accent-gold);"></i>  
+        دكتور أشرف، لقد تركت فراغاً كبيراً في قلوبنا، لكن ذكراك ستبقى نابضة في كل تفصيلة من تفاصيل هذه الكلية، وفي كل عمارة تحمل بصمتك. شكراً لكل لحظة علمتنا فيها معنى العطاء والإخلاص.
     </div>
+    <div class="faculty-gold">
+        <i class="fas fa-chalkboard-user"></i> كل التقدير لأساتذتنا ومعيدينا المخلصين
+    </div>
+    <small>دفعة 2026 - معهد الأهرامات العالي للهندسة والتكنولوجيا | PHI</small>
 </footer>
 
+<div class="lightbox" id="lightbox">
+    <div class="lb-inner">
+        <button class="lb-close" id="lbClose"><i class="fas fa-times"></i></button>
+        <button class="lb-btn lb-prev" id="lbPrev"><i class="fas fa-chevron-right"></i></button>
+        <img class="lb-img" id="lbImage" src="" alt="Memory">
+        <button class="lb-btn lb-next" id="lbNext"><i class="fas fa-chevron-left"></i></button>
+        <div class="lb-counter" id="lbCounter"></div>
+    </div>
+</div>
+
 <script>
-    // دمج القائمة القديمة مع الصور الجديدة (مرتبة من الأحدث إلى الأقدم)
-    // الصور الجديدة (تواريخ 2026-05-01، 2026-04-30، 2026-04-29) توضع أولاً
-    const newImages = [
-        // 2026-05-01 (الأحدث)
+    // جميع الصور مرتبة من الأحدث إلى الأقدم (تم الحفاظ على القائمة الكاملة)
+    const allImages = [
+        "https://i.postimg.cc/TYc6CGP2/Whats-App-Image-2026-05-01-at-22-47-35.jpg",
+        "https://i.postimg.cc/ZKLSVZqz/Whats-App-Image-2026-05-01-at-22-47-35-(1).jpg",
+        "https://i.postimg.cc/gkKWNd0w/Whats-App-Image-2026-05-01-at-22-48-03.jpg",
+        "https://i.postimg.cc/J4QLPmh0/Whats-App-Image-2026-05-01-at-22-48-40.jpg",
+        "https://i.postimg.cc/4N1gBZ3n/Whats-App-Image-2026-05-01-at-22-48-52.jpg",
+        "https://i.postimg.cc/sgDRL8Bg/Whats-App-Image-2026-05-01-at-22-49-02.jpg",
+        "https://i.postimg.cc/BnQGzy8v/Whats-App-Image-2026-05-01-at-22-49-13.jpg",
+        "https://i.postimg.cc/MpK8L4cT/Whats-App-Image-2026-05-01-at-22-49-39.jpg",
+        "https://i.postimg.cc/9QFjkS4q/Whats-App-Image-2026-05-01-at-22-50-12.jpg",
+        "https://i.postimg.cc/RZVzY83J/Whats-App-Image-2026-05-01-at-22-50-24.jpg",
+        "https://i.postimg.cc/P5rk7cLp/Whats-App-Image-2026-05-01-at-22-50-39.jpg",
+        "https://i.postimg.cc/MpK8L4cQ/Whats-App-Image-2026-05-01-at-22-51-00.jpg",
+        "https://i.postimg.cc/9QFjkS4y/Whats-App-Image-2026-05-01-at-22-52-00.jpg",
+        "https://i.postimg.cc/7ZYyRcCg/Whats-App-Image-2026-05-01-at-22-52-40.jpg",
+        "https://i.postimg.cc/DwyKNDWr/Whats-App-Image-2026-05-01-at-22-53-00.jpg",
+        "https://i.postimg.cc/qvMdFYtX/Whats-App-Image-2026-05-01-at-23-02-25.jpg",
+        "https://i.postimg.cc/T3YXsSy9/Whats-App-Image-2026-05-01-at-23-03-54.jpg",
+        "https://i.postimg.cc/4xNT0MKP/Whats-App-Image-2026-05-01-at-23-05-08.jpg",
+        "https://i.postimg.cc/XY70PhZx/Whats-App-Image-2026-05-01-at-23-05-23.jpg",
+        "https://i.postimg.cc/VkLchTSK/Whats-App-Image-2026-05-01-at-23-05-33.jpg",
+        "https://i.postimg.cc/P5rk7cL3/Whats-App-Image-2026-05-01-at-23-08-08.jpg",
+        "https://i.postimg.cc/9Q8jHpTP/Whats-App-Image-2026-05-01-at-23-08-34.jpg",
+        "https://i.postimg.cc/mgXGWwMy/Whats-App-Image-2026-05-01-at-23-09-27.jpg",
+        "https://i.postimg.cc/6pjNx0R0/Whats-App-Image-2026-05-01-at-23-09-46.jpg",
+        "https://i.postimg.cc/YCnwB3gR/Whats-App-Image-2026-05-01-at-23-10-21.jpg",
+        "https://i.postimg.cc/W1WPcnr5/Whats-App-Image-2026-05-01-at-23-10-27.jpg",
+        "https://i.postimg.cc/RZszxRfD/Whats-App-Image-2026-05-01-at-23-11-20.jpg",
+        "https://i.postimg.cc/DwjK3gsY/Whats-App-Image-2026-05-01-at-23-12-05.jpg",
+        "https://i.postimg.cc/sg6RCcSL/Whats-App-Image-2026-05-01-at-23-13-47.jpg",
+        "https://i.postimg.cc/NjJwv4T3/Whats-App-Image-2026-05-01-at-23-14-05.jpg",
+        "https://i.postimg.cc/rwnL2JxX/Whats-App-Image-2026-05-01-at-23-15-13.jpg",
+        "https://i.postimg.cc/P53kn4YG/Whats-App-Image-2026-05-01-at-23-15-55.jpg",
+        "https://i.postimg.cc/t4SHG5Wb/Whats-App-Image-2026-05-01-at-23-16-05.jpg",
+        "https://i.postimg.cc/3xSHQBm8/Whats-App-Image-2026-05-01-at-23-16-31.jpg",
+        "https://i.postimg.cc/BvjfSKcr/Whats-App-Image-2026-05-01-at-23-18-29.jpg",
+        "https://i.postimg.cc/VNJPfCWQ/Whats-App-Image-2026-05-01-at-23-19-45.jpg",
+        "https://i.postimg.cc/Gp4nLyx0/Whats-App-Image-2026-05-01-at-23-20-11.jpg",
+        "https://i.postimg.cc/q7NHJ3xr/Whats-App-Image-2026-05-01-at-23-24-37.jpg",
+        "https://i.postimg.cc/8C7gp6mN/Whats-App-Image-2026-05-01-at-23-25-09.jpg",
+        "https://i.postimg.cc/251NkZ7k/Whats-App-Image-2026-05-01-at-23-28-53.jpg",
         "https://i.postimg.cc/44zDWwS3/Whats-App-Image-2026-05-01-at-22-07-59.jpg",
         "https://i.postimg.cc/xjKw6g4D/Whats-App-Image-2026-05-01-at-22-07-59-(1).jpg",
         "https://i.postimg.cc/wxhCwFGp/Whats-App-Image-2026-05-01-at-22-07-59-(2).jpg",
@@ -505,7 +607,6 @@
         "https://i.postimg.cc/28GPDymR/Whats-App-Image-2026-05-01-at-22-21-35-(1).jpg",
         "https://i.postimg.cc/YqRJH0kB/Whats-App-Image-2026-05-01-at-22-21-35-(2).jpg",
         "https://i.postimg.cc/zX79rv5r/Whats-App-Image-2026-05-01-at-22-21-35-(3).jpg",
-        // 2026-04-30
         "https://i.postimg.cc/3NCzWJvR/Whats-App-Image-2026-04-30-at-17-41-39.jpg",
         "https://i.postimg.cc/C5H9dLqz/Whats-App-Image-2026-04-30-at-17-41-39-(1).jpg",
         "https://i.postimg.cc/qqXWgM33/Whats-App-Image-2026-04-30-at-17-41-43.jpg",
@@ -519,20 +620,12 @@
         "https://i.postimg.cc/Y215d8yZ/Whats-App-Image-2026-04-30-at-22-42-33.jpg",
         "https://i.postimg.cc/xjKw6gFw/Whats-App-Image-2026-04-30-at-23-42-46.jpg",
         "https://i.postimg.cc/2j4s0TKp/Whats-App-Image-2026-04-30-at-23-51-36.jpg",
-        // 2026-04-29
         "https://i.postimg.cc/Y0wJpmhS/Whats-App-Image-2026-04-29-at-14-59-32.jpg",
         "https://i.postimg.cc/brjKz2sP/Whats-App-Image-2026-04-29-at-14-59-32-(1).jpg",
         "https://i.postimg.cc/RhzjMnNZ/Whats-App-Image-2026-04-29-at-14-59-34.jpg",
         "https://i.postimg.cc/3NCzWJvQ/Whats-App-Image-2026-04-29-at-15-35-49.jpg",
         "https://i.postimg.cc/GtJ69hyp/Whats-App-Image-2026-04-29-at-15-48-17.jpg",
-        "https://i.postimg.cc/hvqHS7fP/Whats-App-Image-2026-04-29-at-15-48-17-(1).jpg"
-    ];
-
-    // القائمة القديمة (التي تم تجميعها سابقاً) - جميع الصور ما عدا التي تواريخها 2026-05-01، 2026-04-30، 2026-04-29
-    // لكن لتجنب الازدواجية، سنستخدم القائمة القديمة الكاملة التي كانت موجودة قبل الإضافة الجديدة،
-    // مع إزالة أي صور قد تكون مكررة (لن تكون مكررة لأن الجديدة بأسماء مختلفة)
-    // القائمة القديمة من الكود السابق (بدون الصور الجديدة)
-    const oldImages = [
+        "https://i.postimg.cc/hvqHS7fP/Whats-App-Image-2026-04-29-at-15-48-17-(1).jpg",
         "https://i.postimg.cc/LX2gddTx/Whats-App-Image-2026-04-26-at-00-09-09.jpg",
         "https://i.postimg.cc/V6m0yyRg/Whats-App-Image-2026-04-26-at-00-09-09-(1).jpg",
         "https://i.postimg.cc/0QPKggfZ/Whats-App-Image-2026-04-26-at-00-09-09-(2).jpg",
@@ -650,119 +743,69 @@
         "https://i.postimg.cc/nL8Qk99w/MPGY7367.jpg"
     ];
 
-    // دمج القوائم: صورة الترحيب + الصور الجديدة (الأحدث) + الصور القديمة
-    const welcomeImage = "https://i.postimg.cc/nc5YKPkQ/image.png";
-    const imagesList = [welcomeImage, ...newImages, ...oldImages];
-
-    let currentImages = [...imagesList];
-    let currentIndex = 0;
-    let isTransitioning = false;
-    const galleryDiv = document.getElementById('galleryGrid');
-    const lightbox = document.getElementById('fullscreenLightbox');
-    const fsImage = document.getElementById('fsImage');
-    const fsCounter = document.getElementById('fsCounter');
-    const fsPrev = document.getElementById('fsPrevBtn');
-    const fsNext = document.getElementById('fsNextBtn');
-    const fsClose = document.getElementById('fsCloseBtn');
+    const images = allImages;
+    const galleryContainer = document.getElementById('galleryContainer');
+    const lightboxEl = document.getElementById('lightbox');
+    const lbImage = document.getElementById('lbImage');
+    const lbCounter = document.getElementById('lbCounter');
+    let currentIdx = 0;
 
     function buildGallery() {
-        if (!currentImages.length) {
-            galleryDiv.innerHTML = '<div class="loading-placeholder">✨ لا توجد صور ✨</div>';
-            return;
-        }
         let html = '';
-        currentImages.forEach((src, idx) => {
-            html += `
-                <div class="gallery-card" data-index="${idx}">
-                    <img src="${src}" alt="ذكرى ${idx+1}" loading="lazy">
-                </div>
-            `;
+        images.forEach((src, i) => {
+            html += `<div class="gallery-item" style="--i: ${i}"><img src="${src}" loading="lazy" alt="Memory"><div class="glass-overlay"></div></div>`;
         });
-        galleryDiv.innerHTML = html;
-        document.querySelectorAll('.gallery-card').forEach(card => {
-            card.addEventListener('click', () => {
-                const idx = parseInt(card.getAttribute('data-index'));
-                if (!isNaN(idx)) openLightbox(idx);
-            });
+        galleryContainer.innerHTML = html;
+        document.querySelectorAll('.gallery-item').forEach((el, idx) => {
+            el.addEventListener('click', () => openLightbox(idx));
         });
     }
 
-    function openLightbox(index) {
-        if (isTransitioning) return;
-        currentIndex = index;
-        updateLightboxContent(true);
-        lightbox.classList.add('active');
+    function openLightbox(idx) {
+        currentIdx = idx;
+        updateLightbox();
+        lightboxEl.classList.add('active');
         document.body.style.overflow = 'hidden';
     }
 
-    function updateLightboxContent(initial = false) {
-        const imgSrc = currentImages[currentIndex];
-        if (!imgSrc) return;
-        const total = currentImages.length;
-        if (initial) {
-            fsImage.style.transition = 'none';
-            fsImage.src = imgSrc;
-            fsCounter.innerText = `${currentIndex+1} / ${total}`;
-            fsImage.style.opacity = '1';
-            fsImage.offsetHeight;
-            fsImage.style.transition = 'opacity 0.25s ease';
-        } else {
-            fsImage.style.opacity = '0';
-            setTimeout(() => {
-                fsImage.src = imgSrc;
-                fsCounter.innerText = `${currentIndex+1} / ${total}`;
-                setTimeout(() => { fsImage.style.opacity = '1'; }, 30);
-            }, 150);
-        }
-        fsCounter.innerText = `${currentIndex+1} / ${total}`;
+    function updateLightbox() {
+        lbImage.src = images[currentIdx];
+        lbCounter.innerText = `${currentIdx+1} / ${images.length}`;
     }
 
     function nextImage() {
-        if (isTransitioning) return;
-        isTransitioning = true;
-        currentIndex = (currentIndex + 1) % currentImages.length;
-        updateLightboxContent();
-        setTimeout(() => { isTransitioning = false; }, 280);
+        currentIdx = (currentIdx + 1) % images.length;
+        updateLightbox();
     }
 
     function prevImage() {
-        if (isTransitioning) return;
-        isTransitioning = true;
-        currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
-        updateLightboxContent();
-        setTimeout(() => { isTransitioning = false; }, 280);
+        currentIdx = (currentIdx - 1 + images.length) % images.length;
+        updateLightbox();
     }
 
     function closeLightbox() {
-        lightbox.classList.remove('active');
+        lightboxEl.classList.remove('active');
         document.body.style.overflow = '';
-        fsImage.style.opacity = '1';
     }
 
-    fsClose.addEventListener('click', closeLightbox);
-    fsPrev.addEventListener('click', prevImage);
-    fsNext.addEventListener('click', nextImage);
-    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+    document.getElementById('lbPrev').addEventListener('click', prevImage);
+    document.getElementById('lbNext').addEventListener('click', nextImage);
+    document.getElementById('lbClose').addEventListener('click', closeLightbox);
+    lightboxEl.addEventListener('click', (e) => { if(e.target === lightboxEl) closeLightbox(); });
     window.addEventListener('keydown', (e) => {
-        if (!lightbox.classList.contains('active')) return;
-        if (e.key === 'ArrowRight') prevImage();
-        else if (e.key === 'ArrowLeft') nextImage();
-        else if (e.key === 'Escape') closeLightbox();
+        if(!lightboxEl.classList.contains('active')) return;
+        if(e.key === 'ArrowRight') prevImage();
+        else if(e.key === 'ArrowLeft') nextImage();
+        else if(e.key === 'Escape') closeLightbox();
     });
 
     const splash = document.getElementById('splashScreen');
-    function hideSplash() {
-        splash.style.opacity = '0';
-        splash.style.visibility = 'hidden';
-        setTimeout(() => { splash.style.display = 'none'; }, 800);
-    }
-    setTimeout(hideSplash, 3000);
+    const hideSplash = () => {
+        splash.classList.add('hide');
+        setTimeout(() => { splash.style.display = 'none'; }, 1000);
+    };
+    setTimeout(hideSplash, 4000);
     splash.addEventListener('click', hideSplash);
-    window.addEventListener('load', () => {
-        setTimeout(() => {
-            if (splash.style.display !== 'none') hideSplash();
-        }, 4000);
-    });
 
     buildGallery();
 </script>
