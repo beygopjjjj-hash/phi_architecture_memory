@@ -34,6 +34,8 @@
             --shadow-color: rgba(0,0,0,0.6);
             --footer-bg: #0b111c;
             --tribute-bg: rgba(226, 189, 110, 0.12);
+            --input-bg: rgba(255,255,255,0.1);
+            --message-bg: rgba(20,30,45,0.5);
         }
 
         /* الوضع الفاتح - تباين عالٍ */
@@ -51,6 +53,8 @@
                 --shadow-color: rgba(0,0,0,0.08);
                 --footer-bg: #f0ebe2;
                 --tribute-bg: rgba(184, 124, 46, 0.08);
+                --input-bg: rgba(0,0,0,0.04);
+                --message-bg: #fefaf5;
             }
             body {
                 background-color: var(--bg-primary);
@@ -75,7 +79,7 @@
                 backdrop-filter: none;
                 box-shadow: 0 8px 20px rgba(0,0,0,0.05);
             }
-            footer {
+            footer, .messages-section {
                 background: #fefaf2;
                 border-top-color: #e2d5c0;
             }
@@ -98,6 +102,10 @@
             }
             .splash-title span {
                 color: #b87c2e;
+            }
+            .message-card {
+                background: #ffffff;
+                border: 1px solid #eee5d8;
             }
         }
 
@@ -322,6 +330,128 @@
             opacity: 1;
         }
 
+        /* قسم الرسائل */
+        .messages-section {
+            max-width: 900px;
+            margin: 20px auto 60px;
+            padding: 30px 25px;
+            background: var(--footer-bg);
+            border-radius: 48px;
+            box-shadow: 0 15px 35px var(--shadow-color);
+            border: 1px solid var(--card-border);
+        }
+        .messages-title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .messages-title h3 {
+            font-size: 1.8rem;
+            color: var(--accent-gold);
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .message-input-area {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+        .message-input-area input, .message-input-area textarea {
+            background: var(--input-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 28px;
+            padding: 14px 22px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 1rem;
+            color: var(--text-primary);
+            resize: vertical;
+            transition: 0.2s;
+        }
+        .message-input-area input:focus, .message-input-area textarea:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 0 2px rgba(226,189,110,0.3);
+        }
+        .message-input-area input::placeholder, .message-input-area textarea::placeholder {
+            color: var(--text-secondary);
+            opacity: 0.6;
+        }
+        .send-btn {
+            background: var(--accent-gold);
+            border: none;
+            border-radius: 60px;
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #1a2c38;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 180px;
+            margin: 0 auto;
+        }
+        .send-btn:hover {
+            background: var(--accent-gold-dark);
+            transform: scale(1.02);
+        }
+        .messages-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-height: 500px;
+            overflow-y: auto;
+            padding: 5px;
+        }
+        .message-card {
+            background: var(--message-bg);
+            border-radius: 28px;
+            padding: 18px 22px;
+            border-right: 4px solid var(--accent-gold);
+            transition: 0.2s;
+        }
+        .message-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        .message-header i {
+            font-size: 1.8rem;
+            color: var(--accent-gold);
+        }
+        .message-name {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--accent-gold);
+        }
+        .message-date {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            margin-right: auto;
+        }
+        .message-text {
+            line-height: 1.6;
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            word-break: break-word;
+        }
+        .empty-messages {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+        @media (max-width: 750px) {
+            .hero h1 { font-size: 2rem; }
+            .gallery { gap: 18px; grid-template-columns: repeat(auto-fill, minmax(260px,1fr)); }
+            .gallery-item img { height: 240px; }
+            .messages-section { margin: 20px 15px 50px; padding: 20px; }
+        }
+
         /* Lightbox */
         .lightbox {
             position: fixed;
@@ -425,15 +555,6 @@
             font-size: 0.9rem;
         }
 
-        @media (max-width: 750px) {
-            .hero h1 { font-size: 2rem; }
-            .gallery { gap: 18px; grid-template-columns: repeat(auto-fill, minmax(260px,1fr)); }
-            .gallery-item img { height: 240px; }
-            .lb-btn { width: 44px; height: 44px; font-size: 1.4rem; }
-            .lb-close { top: 15px; right: 20px; width: 42px; height: 42px; }
-            .hero .tribute p { font-size: 0.85rem; }
-        }
-
         /* Footer */
         footer {
             padding: 60px 20px 50px;
@@ -514,6 +635,22 @@
     </div>
 
     <div class="gallery" id="galleryContainer"></div>
+
+    <!-- قسم الرسائل الجديد -->
+    <div class="messages-section">
+        <div class="messages-title">
+            <h3><i class="fas fa-envelope-open-text"></i> رسائل الذكرى</h3>
+            <p style="color: var(--text-secondary); margin-top: 8px;">اكتب رسالة لزملائك وستظهر هنا للجميع</p>
+        </div>
+        <div class="message-input-area">
+            <input type="text" id="senderName" placeholder="اسمك (اختياري)" maxlength="50">
+            <textarea id="messageContent" rows="3" placeholder="اكتب رسالتك هنا... بكلمات من القلب" maxlength="500"></textarea>
+            <button class="send-btn" id="sendMessageBtn"><i class="fas fa-paper-plane"></i> أرسل رسالة</button>
+        </div>
+        <div class="messages-list" id="messagesList">
+            <div class="empty-messages">لا توجد رسائل بعد، كن أول من يكتب رسالة تذكارية</div>
+        </div>
+    </div>
 </main>
 
 <footer>
@@ -538,7 +675,9 @@
 </div>
 
 <script>
-    // جميع الصور مرتبة من الأحدث إلى الأقدم (تم الحفاظ على القائمة الكاملة)
+    // ------------------------------------------------
+    // 1. جميع الصور (كما هي من قبل - تم الحفاظ عليها)
+    // ------------------------------------------------
     const allImages = [
         "https://i.postimg.cc/TYc6CGP2/Whats-App-Image-2026-05-01-at-22-47-35.jpg",
         "https://i.postimg.cc/ZKLSVZqz/Whats-App-Image-2026-05-01-at-22-47-35-(1).jpg",
@@ -808,6 +947,69 @@
     splash.addEventListener('click', hideSplash);
 
     buildGallery();
+
+    // --------------------- نظام الرسائل ---------------------
+    let messages = JSON.parse(localStorage.getItem('arch_messages')) || [];
+
+    function renderMessages() {
+        const container = document.getElementById('messagesList');
+        if (!messages.length) {
+            container.innerHTML = '<div class="empty-messages">لا توجد رسائل بعد، كن أول من يكتب رسالة تذكارية</div>';
+            return;
+        }
+        const reversed = [...messages].reverse(); // الأحدث أولاً
+        container.innerHTML = reversed.map(msg => `
+            <div class="message-card">
+                <div class="message-header">
+                    <i class="fas fa-user-circle"></i>
+                    <span class="message-name">${escapeHtml(msg.name || 'صديق')}</span>
+                    <span class="message-date">${msg.date}</span>
+                </div>
+                <div class="message-text">${escapeHtml(msg.text)}</div>
+            </div>
+        `).join('');
+    }
+
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        }).replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, function(c) {
+            return c;
+        });
+    }
+
+    function addMessage(name, text) {
+        if (!text.trim()) {
+            alert("الرجاء كتابة رسالة");
+            return false;
+        }
+        const now = new Date();
+        const formattedDate = `${now.toLocaleDateString('ar-EG')} - ${now.toLocaleTimeString('ar-EG', {hour:'2-digit', minute:'2-digit'})}`;
+        messages.push({
+            name: name.trim() || "صديق",
+            text: text.trim(),
+            date: formattedDate,
+            timestamp: Date.now()
+        });
+        localStorage.setItem('arch_messages', JSON.stringify(messages));
+        renderMessages();
+        return true;
+    }
+
+    document.getElementById('sendMessageBtn').addEventListener('click', () => {
+        const nameInput = document.getElementById('senderName');
+        const msgInput = document.getElementById('messageContent');
+        if (addMessage(nameInput.value, msgInput.value)) {
+            msgInput.value = '';
+            nameInput.value = '';
+        }
+    });
+
+    renderMessages();
 </script>
 </body>
 </html>
