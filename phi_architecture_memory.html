@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        /* كامل الـ CSS سيبقى كما هو، مع إضافة القليل لأنماط الإدارة */
         * {
             margin: 0;
             padding: 0;
@@ -555,6 +556,105 @@
             font-size: 0.9rem;
         }
 
+        /* بداية أنماط لوحة الإدارة */
+        .admin-bar {
+            display: flex;
+            justify-content: flex-end;
+            padding: 15px 25px;
+            gap: 15px;
+            align-items: center;
+            position: relative;
+            z-index: 100;
+        }
+        .admin-btn {
+            background: var(--accent-gold);
+            border: none;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #1a2c38;
+            transition: 0.2s;
+        }
+        .admin-btn:hover {
+            background: var(--accent-gold-dark);
+            transform: scale(1.02);
+        }
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            backdrop-filter: blur(12px);
+            z-index: 40000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            visibility: hidden;
+            opacity: 0;
+            transition: 0.2s;
+        }
+        .modal.active {
+            visibility: visible;
+            opacity: 1;
+        }
+        .modal-box {
+            background: var(--bg-secondary);
+            border-radius: 40px;
+            padding: 30px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            border: 1px solid var(--accent-gold);
+            color: var(--text-primary);
+        }
+        .admin-panel {
+            max-width: 900px;
+            width: 95%;
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+        .image-grid-admin {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px,1fr));
+            gap: 12px;
+            margin: 20px 0;
+        }
+        .img-admin-item {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 8px;
+        }
+        .img-admin-item img {
+            width: 100%;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+        .delete-btn {
+            background: #a03c2c;
+            border: none;
+            color: white;
+            border-radius: 20px;
+            padding: 4px 8px;
+            font-size: 0.7rem;
+            margin-top: 6px;
+            cursor: pointer;
+        }
+        .message-admin-item {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 12px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        /* نهاية أنماط الإدارة */
+
         /* Footer */
         footer {
             padding: 60px 20px 50px;
@@ -593,6 +693,50 @@
 <body>
 <div class="bg-aura"></div>
 
+<!-- شريط الإدارة (يظهر دائماً) -->
+<div class="admin-bar">
+    <button id="openAdminBtn" class="admin-btn"><i class="fas fa-lock"></i> دخول الإدارة</button>
+    <span id="adminStatus">🔒 وضع المستخدم</span>
+</div>
+
+<!-- مودال تسجيل الدخول -->
+<div id="loginModal" class="modal">
+    <div class="modal-box">
+        <h3><i class="fas fa-crown"></i> تسجيل دخول المدير</h3>
+        <input type="password" id="adminPass" placeholder="كلمة المرور" style="margin: 20px 0; width: 100%; padding: 12px; border-radius: 60px; border: none;">
+        <button id="loginSubmit" class="admin-btn">دخول</button>
+        <button id="closeLogin" style="background: none; border: none; color: var(--text-secondary); margin-top: 15px;">إغلاق</button>
+    </div>
+</div>
+
+<!-- مودال لوحة الإدارة -->
+<div id="adminModal" class="modal">
+    <div class="modal-box admin-panel">
+        <h2><i class="fas fa-sliders-h"></i> لوحة الإدارة</h2>
+        <div style="margin: 20px 0;">
+            <h4>➕ إضافة صورة جديدة</h4>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <input type="text" id="newImageUrl" placeholder="رابط الصورة (Direct URL)" style="flex:1; padding: 10px; border-radius: 60px;">
+                <button id="addImageBtn" class="admin-btn">إضافة</button>
+            </div>
+            <div id="adminImagesList" class="image-grid-admin"></div>
+        </div>
+        <div style="margin: 20px 0;">
+            <h4>📝 تعديل النص التذكاري</h4>
+            <textarea id="editTributeText" rows="5" style="width:100%; padding: 12px; border-radius: 24px;"></textarea>
+            <button id="saveTributeBtn" class="admin-btn" style="margin-top: 10px;">حفظ النص</button>
+        </div>
+        <div style="margin: 20px 0;">
+            <h4>💬 إدارة الرسائل</h4>
+            <div id="adminMessagesList"></div>
+            <button id="clearAllMessagesBtn" class="admin-btn" style="background:#a03c2c; margin-top: 15px;">حذف كل الرسائل</button>
+        </div>
+        <button id="logoutAdminBtn" class="admin-btn" style="background:#5a6e7c;">تسجيل الخروج</button>
+        <button id="closeAdminBtn" style="margin-top: 15px; background: none; border:1px solid var(--accent-gold); padding: 6px 20px; border-radius: 30px;">إغلاق</button>
+    </div>
+</div>
+
+<!-- بقية محتوى الموقع الأصلي -->
 <!-- Splash Screen -->
 <div id="splashScreen" class="splash">
     <div class="splash-content">
@@ -609,8 +753,8 @@
         <h1>ستظل ذكراك في قلوبنا</h1>
         <div class="sub">رحمك الله يا دكتور أشرف</div>
         
-        <div class="tribute">
-            <p>
+        <div class="tribute" id="tributeBox">
+            <p id="tributeText">
                 وداعاً يا من كنت نوراً يضيء درب طلاب العمارة، كنت معلماً حكيماً وأباً روحياً للجميع. 
                 علمتنا أن العمارة ليست مجرد حجر ومادة، بل هي رسالة وحياة وروح. 
                 سيبقى أثرك خالداً في كل زاوية صممتها وفي كل عقل أنارته حكمتك. 
@@ -636,7 +780,7 @@
 
     <div class="gallery" id="galleryContainer"></div>
 
-    <!-- قسم الرسائل الجديد -->
+    <!-- قسم الرسائل -->
     <div class="messages-section">
         <div class="messages-title">
             <h3><i class="fas fa-envelope-open-text"></i> رسائل الذكرى</h3>
@@ -882,7 +1026,10 @@
         "https://i.postimg.cc/nL8Qk99w/MPGY7367.jpg"
     ];
 
-    const images = allImages;
+    let images = [...allImages];
+    let messages = JSON.parse(localStorage.getItem('arch_messages')) || [];
+    let tributeText = document.getElementById('tributeText').innerText;
+
     const galleryContainer = document.getElementById('galleryContainer');
     const lightboxEl = document.getElementById('lightbox');
     const lbImage = document.getElementById('lbImage');
@@ -948,16 +1095,14 @@
 
     buildGallery();
 
-    // --------------------- نظام الرسائل ---------------------
-    let messages = JSON.parse(localStorage.getItem('arch_messages')) || [];
-
+    // --------------------- نظام الرسائل العام ---------------------
     function renderMessages() {
         const container = document.getElementById('messagesList');
         if (!messages.length) {
             container.innerHTML = '<div class="empty-messages">لا توجد رسائل بعد، كن أول من يكتب رسالة تذكارية</div>';
             return;
         }
-        const reversed = [...messages].reverse(); // الأحدث أولاً
+        const reversed = [...messages].reverse();
         container.innerHTML = reversed.map(msg => `
             <div class="message-card">
                 <div class="message-header">
@@ -977,8 +1122,6 @@
             if (m === '<') return '&lt;';
             if (m === '>') return '&gt;';
             return m;
-        }).replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, function(c) {
-            return c;
         });
     }
 
@@ -997,6 +1140,7 @@
         });
         localStorage.setItem('arch_messages', JSON.stringify(messages));
         renderMessages();
+        if (typeof renderAdminMessages === 'function') renderAdminMessages();
         return true;
     }
 
@@ -1010,6 +1154,102 @@
     });
 
     renderMessages();
+
+    // --------------------- نظام الداش بورد والإدارة ---------------------
+    let isAdmin = false;
+
+    function saveImages() {
+        localStorage.setItem('site_images', JSON.stringify(images));
+        buildGallery();
+        if(isAdmin) renderAdminImages();
+    }
+    function saveMessagesAdmin() {
+        localStorage.setItem('arch_messages', JSON.stringify(messages));
+        renderMessages();
+        if(isAdmin) renderAdminMessages();
+    }
+    function saveTributeAdmin() {
+        localStorage.setItem('site_tribute', tributeText);
+        document.getElementById('tributeText').innerText = tributeText;
+    }
+
+    function renderAdminImages() {
+        const div = document.getElementById('adminImagesList');
+        if (!div) return;
+        div.innerHTML = images.map((src, idx) => `
+            <div class="img-admin-item">
+                <img src="${src}">
+                <button class="delete-btn" data-img-index="${idx}">حذف</button>
+            </div>
+        `).join('');
+        document.querySelectorAll('[data-img-index]').forEach(btn => {
+            btn.addEventListener('click', e => {
+                let i = parseInt(btn.getAttribute('data-img-index'));
+                if (!isNaN(i)) { images.splice(i, 1); saveImages(); renderAdminImages(); buildGallery(); }
+            });
+        });
+    }
+
+    function renderAdminMessages() {
+        const div = document.getElementById('adminMessagesList');
+        if (!div) return;
+        if (messages.length === 0) { div.innerHTML = '<div>لا توجد رسائل</div>'; return; }
+        div.innerHTML = messages.map((msg, idx) => `
+            <div class="message-admin-item">
+                <div><strong>${escapeHtml(msg.name)}</strong> - ${msg.date}<br>${escapeHtml(msg.text)}</div>
+                <button class="delete-btn" data-msg-index="${idx}">حذف</button>
+            </div>
+        `).join('');
+        document.querySelectorAll('[data-msg-index]').forEach(btn => {
+            btn.addEventListener('click', e => {
+                let i = parseInt(btn.getAttribute('data-msg-index'));
+                if (!isNaN(i)) { messages.splice(i, 1); saveMessagesAdmin(); renderAdminMessages(); renderMessages(); }
+            });
+        });
+    }
+
+    const loginModal = document.getElementById('loginModal');
+    const adminModal = document.getElementById('adminModal');
+    const adminStatusSpan = document.getElementById('adminStatus');
+    function openLogin() { loginModal.classList.add('active'); }
+    function closeLogin() { loginModal.classList.remove('active'); }
+    function openAdminPanel() { adminModal.classList.add('active'); renderAdminImages(); renderAdminMessages(); document.getElementById('editTributeText').value = tributeText; }
+    function closeAdminPanel() { adminModal.classList.remove('active'); }
+
+    document.getElementById('openAdminBtn').addEventListener('click', openLogin);
+    document.getElementById('closeLogin').addEventListener('click', closeLogin);
+    document.getElementById('closeAdminBtn').addEventListener('click', closeAdminPanel);
+    document.getElementById('loginSubmit').addEventListener('click', () => {
+        let pass = document.getElementById('adminPass').value;
+        if (pass === "Milano@123") {   // <--- غير كلمة المرور هنا
+            isAdmin = true;
+            localStorage.setItem('site_admin_logged', 'true');
+            adminStatusSpan.innerHTML = '🔓 وضع الإدارة نشط';
+            closeLogin();
+            openAdminPanel();
+        } else { alert("كلمة المرور غير صحيحة"); }
+        document.getElementById('adminPass').value = '';
+    });
+    document.getElementById('logoutAdminBtn').addEventListener('click', () => {
+        isAdmin = false;
+        localStorage.removeItem('site_admin_logged');
+        adminStatusSpan.innerHTML = '🔒 وضع المستخدم';
+        closeAdminPanel();
+    });
+    if (localStorage.getItem('site_admin_logged') === 'true') { isAdmin = true; adminStatusSpan.innerHTML = '🔓 وضع الإدارة نشط'; }
+
+    document.getElementById('saveTributeBtn')?.addEventListener('click', () => {
+        let newText = document.getElementById('editTributeText').value;
+        if (newText) { tributeText = newText; saveTributeAdmin(); }
+    });
+    document.getElementById('clearAllMessagesBtn')?.addEventListener('click', () => {
+        if (confirm("هل أنت متأكد من حذف جميع الرسائل؟")) { messages = []; saveMessagesAdmin(); renderAdminMessages(); renderMessages(); }
+    });
+    document.getElementById('addImageBtn')?.addEventListener('click', () => {
+        let url = document.getElementById('newImageUrl').value.trim();
+        if (url) { images.push(url); saveImages(); renderAdminImages(); buildGallery(); document.getElementById('newImageUrl').value = ''; }
+        else alert("أدخل رابط صورة صحيح");
+    });
 </script>
 </body>
 </html>
