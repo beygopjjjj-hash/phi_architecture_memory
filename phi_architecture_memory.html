@@ -79,7 +79,7 @@
                 backdrop-filter: none;
                 box-shadow: 0 8px 20px rgba(0,0,0,0.05);
             }
-            footer, .messages-section {
+            footer, .thanks-section {
                 background: #fefaf2;
                 border-top-color: #e2d5c0;
             }
@@ -102,10 +102,6 @@
             }
             .splash-title span {
                 color: #b87c2e;
-            }
-            .message-card {
-                background: #ffffff;
-                border: 1px solid #eee5d8;
             }
         }
 
@@ -539,7 +535,7 @@
         <div class="info-pills">
             <span><i class="fas fa-drafting-compass"></i> روح معمارية</span>
             <span><i class="fas fa-landmark"></i> هوية خالدة</span>
-            <span><i class="fas fa-images"></i> 240+ ذكرى</span>
+            <span><i class="fas fa-images"></i> 350+ ذكرى</span>
         </div>
         <div class="gold-divider"></div>
         <p style="margin-top: 35px; color: var(--text-secondary); font-weight: 500;">انقر على الصورة لاستعادة الذكرى بملء الشاشة</p>
@@ -552,7 +548,7 @@
 
     <div class="gallery" id="galleryContainer"></div>
 
-    <!-- قسم الشكر الجديد (بدلاً من الرسائل) -->
+    <!-- قسم الشكر (بدلاً من الرسائل) -->
     <div class="thanks-section">
         <h3><i class="fas fa-heart"></i> كلمة شكر وتقدير <i class="fas fa-heart"></i></h3>
         <div class="thanks-text">
@@ -596,9 +592,10 @@
 
 <script>
     // ------------------------------------------------
-    // جميع الصور (كما هي دون تغيير)
+    // جميع الصور (القديمة + الجديدة)
     // ------------------------------------------------
     const allImages = [
+        // الصور القديمة
         "https://i.postimg.cc/Y0wJpmhS/Whats-App-Image-2026-04-29-at-14-59-32.jpg",
         "https://i.postimg.cc/brjKz2sP/Whats-App-Image-2026-04-29-at-14-59-32-(1).jpg",
         "https://i.postimg.cc/RhzjMnNZ/Whats-App-Image-2026-04-29-at-14-59-34.jpg",
@@ -818,7 +815,12 @@
         "https://i.postimg.cc/wjQNtLWp/Whats-App-Image-2026-04-26-at-00-09-11-(1).jpg",
         "https://i.postimg.cc/P5QDLY6h/Whats-App-Image-2026-04-26-at-00-09-11-(2).jpg",
         "https://i.postimg.cc/QdJ7B16h/Whats-App-Image-2026-04-26-at-00-09-11-(3).jpg",
-        "https://i.postimg.cc/Jz5XyZTn/Whats-App-Image-2026-04-26-at-00-09-11-(4).jpg"
+        "https://i.postimg.cc/Jz5XyZTn/Whats-App-Image-2026-04-26-at-00-09-11-(4).jpg",
+        // الصور الجديدة المضافة (4 صور)
+        "https://i.postimg.cc/t4jcxPc0/Whats-App-Image-2026-05-09-at-17-19-08.jpg",
+        "https://i.postimg.cc/y8HGZ9GK/Whats-App-Image-2026-05-09-at-17-19-09.jpg",
+        "https://i.postimg.cc/kgmHb8H9/Whats-App-Image-2026-05-09-at-17-19-10.jpg",
+        "https://i.postimg.cc/W1vykryv/Whats-App-Image-2026-05-09-at-17-19-12.jpg"
     ];
 
     const images = allImages;
